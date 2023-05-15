@@ -96,6 +96,9 @@ const theme: ThemeOptions = {
     },
   },
   palette: {
+    primary: {
+      main: "#46a997",
+    },
     text: {
       disabled: "#686868",
     },
