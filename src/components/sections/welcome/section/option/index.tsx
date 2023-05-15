@@ -1,6 +1,14 @@
-import { Radio } from "@mui/material";
+import {
+  FormControl,
+  FormControlLabel,
+  FormLabel,
+  Radio,
+  RadioGroup,
+} from "@mui/material";
 import { Box } from "@mui/system";
 import React from "react";
+
+import styles from "./style.module.css";
 
 const Option = () => {
   const [selectedValue, setSelectedValue] = React.useState("a");
@@ -9,61 +17,46 @@ const Option = () => {
     setSelectedValue(event.target.value);
   };
 
-  const controlProps = (item: string) => ({
-    checked: selectedValue === item,
-    onChange: handleChange,
-    value: item,
-    name: "color-radio-button-demo",
-    inputProps: { "aria-label": item },
-  });
   let tempArray = [1, 2, 3, 4];
 
   return (
     <>
-      <Box
-        sx={{
-          padding: "20px",
-          gap: "20px",
-          display: "flex",
-          flexDirection: "column",
-        }}
-      >
-        <Box>SELECT ONLY ONE</Box>
-        <Box sx={{ gap: "30px", display: "flex", flexDirection: "column" }}>
-          {tempArray.map((data) => {
-            return (
-              <>
-                <Box
-                  sx={{
-                    border: "2px solid #efefef",
-                    borderRadius: "5px",
-                    cursor: "pointer",
-                    "&:hover": {
-                      border: "2px solid #46a997",
-                    },
-                  }}
-                >
-                  <Radio
-                    {...controlProps("c")}
-                    color="success"
+      <Box className={styles.optionBox}>
+        <FormControl>
+          <FormLabel
+            id="demo-radio-buttons-group-label2"
+            className={styles.formLabel}
+          >
+            SELECT ONLY ONE
+          </FormLabel>
+          <RadioGroup
+            aria-labelledby="demo-radio-buttons-group-label"
+            defaultValue="female"
+            name="radio-buttons-group"
+          >
+            {tempArray.map((data, index) => {
+              return (
+                <>
+                  <FormControlLabel
+                    value={data}
+                    key={index}
+                    control={<Radio />}
+                    label="Please Select Any one Option"
                     sx={{
-                      padding: "0px",
-                      margin: "10px",
                       "&:hover": {
                         border: "2px solid #46a997",
                       },
+                      "& .MuiFormControlLabel-label": {
+                        fontSize: { xs: "13px", md: "20px" },
+                      },
                     }}
-                    // inputProps={{
-                    //   style: {
-                    //     border: "1px solid red",
-                    //   },
-                    // }}
+                    className={styles.formControlLabel}
                   />
-                </Box>
-              </>
-            );
-          })}
-        </Box>
+                </>
+              );
+            })}
+          </RadioGroup>
+        </FormControl>
       </Box>
     </>
   );

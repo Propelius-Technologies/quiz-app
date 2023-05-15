@@ -16,6 +16,24 @@ const theme: ThemeOptions = {
         },
       },
     },
+    MuiRadio: {
+      styleOverrides: {
+        root: {
+          "& .MuiSvgIcon-root": {
+            fontSize: 35,
+          },
+          color: "#efefef",
+          "&.Mui-checked": {
+            color: "#46a997 !important",
+          },
+          "&:hover": {
+            "& .MuiSvgIcon-root": {
+              color: "#46a997",
+            },
+          },
+        },
+      },
+    },
     MuiButton: {
       styleOverrides: {
         contained: {
