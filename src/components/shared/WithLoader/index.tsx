@@ -1,7 +1,7 @@
 import useStore from "@/src/zustand-store";
-import { CircularProgress, Typography } from "@mui/material";
-import { Box } from "@mui/system";
+import { CircularProgress } from "@mui/material";
 import React, { ReactNode } from "react";
+import { LoaderWrapper } from "./styles";
 
 interface WithLoaderProps {
   children: ReactNode;
@@ -12,19 +12,9 @@ const WithLoader = ({ children }: WithLoaderProps): JSX.Element => {
   return (
     <>
       {loading ? (
-        <Box
-          sx={{
-            height: "100vh",
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            alignItems: "center",
-            gap: "10px",
-          }}
-        >
-          {/* <Typography variant="h4">Propelius Tech</Typography> */}
+        <LoaderWrapper>
           <CircularProgress color="inherit" />
-        </Box>
+        </LoaderWrapper>
       ) : (
         <>{children}</>
       )}
