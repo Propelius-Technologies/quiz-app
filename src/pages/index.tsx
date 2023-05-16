@@ -1,6 +1,5 @@
 import { Box } from "@mui/material";
 import Head from "next/head";
-import Welcome from "../components/sections/welcome";
 
 export default function Home() {
   return (
@@ -12,9 +11,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        <Box>
-          <Welcome />
-        </Box>
+        <Box></Box>
       </main>
     </>
   );
