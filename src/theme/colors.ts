@@ -12,3 +12,11 @@ export const Warning = "#ff0";
 export const WHITE = "#fff";
 export const Blue = "#0000FF";
 export const Danger = "#F32013";
+
+export const Greay_Dull = "#686868";
+export const Greay_Light = "#f7f7f7";
+export const Red = "#D10929";
+export const Orange = "#ED6C02";
+export const Light_Blue = "#0288D1";
+
+export const Primary_Green = "#46a997";

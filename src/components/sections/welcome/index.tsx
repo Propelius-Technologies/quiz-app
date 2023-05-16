@@ -1,31 +1,18 @@
-import { Paper } from "@mui/material";
-import { Box } from "@mui/system";
+import { Container, Paper } from "@mui/material";
 import React from "react";
-import Option from "./section/option";
-import Question from "./section/question";
+import Option from "./option";
+import Question from "./question";
+import { PaperStyle, StyledContainer } from "./styles";
 
 const Welcome = () => {
   return (
     <>
-      <Box>
-        <Paper
-          elevation={1}
-          sx={{
-            display: "flex",
-            flexDirection: { xs: "column", md: "row" },
-            margin: { xs: "20px", sm: "30px", md: "50px" },
-            padding: "20px",
-          }}
-        >
-          <Box sx={{ width: { xs: "100%", md: "50%" } }}>
-            <Question />
-          </Box>
-
-          <Box sx={{ width: { xs: "100%", md: "50%" } }}>
-            <Option />
-          </Box>
+      <Container maxWidth="xl" sx={StyledContainer}>
+        <Paper elevation={1} sx={PaperStyle}>
+          <Question />
+          <Option />
         </Paper>
-      </Box>
+      </Container>
     </>
   );
 };

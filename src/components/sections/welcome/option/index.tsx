@@ -5,34 +5,29 @@ import {
   Radio,
   RadioGroup,
 } from "@mui/material";
-import { Box } from "@mui/system";
 import React from "react";
+import { FormControlLabelStyle, OptionBoxStyle } from "../styles";
 
 import styles from "./style.module.css";
 
 const Option = () => {
-  const [selectedValue, setSelectedValue] = React.useState("a");
-
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSelectedValue(event.target.value);
-  };
-
   let tempArray = [1, 2, 3, 4];
 
   return (
     <>
-      <Box className={styles.optionBox}>
+      <OptionBoxStyle>
         <FormControl>
           <FormLabel
             id="demo-radio-buttons-group-label2"
             className={styles.formLabel}
           >
-            SELECT ONLY ONE
+            Select Any One
           </FormLabel>
           <RadioGroup
             aria-labelledby="demo-radio-buttons-group-label"
             defaultValue="female"
             name="radio-buttons-group"
+            onChange={(e) => console.log(e.target.value)}
           >
             {tempArray.map((data, index) => {
               return (
@@ -42,14 +37,7 @@ const Option = () => {
                     key={index}
                     control={<Radio />}
                     label="Please Select Any one Option"
-                    sx={{
-                      "&:hover": {
-                        border: "2px solid #46a997",
-                      },
-                      "& .MuiFormControlLabel-label": {
-                        fontSize: { xs: "13px", md: "20px" },
-                      },
-                    }}
+                    sx={FormControlLabelStyle}
                     className={styles.formControlLabel}
                   />
                 </>
@@ -57,7 +45,7 @@ const Option = () => {
             })}
           </RadioGroup>
         </FormControl>
-      </Box>
+      </OptionBoxStyle>
     </>
   );
 };

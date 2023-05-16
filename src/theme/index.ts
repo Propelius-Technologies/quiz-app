@@ -1,5 +1,15 @@
 import { ThemeOptions } from "@mui/material/styles";
-import { SUCCESS } from "./colors";
+import {
+  DARK_GREY,
+  Greay_Dull,
+  Greay_Light,
+  Light_Blue,
+  Orange,
+  Primary_Green,
+  Red,
+  SUCCESS,
+  WHITE,
+} from "./colors";
 import { ScreenSizes } from "./screen-sizes";
 
 const theme: ThemeOptions = {
@@ -22,13 +32,13 @@ const theme: ThemeOptions = {
           "& .MuiSvgIcon-root": {
             fontSize: 35,
           },
-          color: "#efefef",
+          color: DARK_GREY,
           "&.Mui-checked": {
-            color: "#46a997 !important",
+            color: Primary_Green,
           },
           "&:hover": {
             "& .MuiSvgIcon-root": {
-              color: "#46a997",
+              color: Primary_Green,
             },
           },
         },
@@ -37,7 +47,7 @@ const theme: ThemeOptions = {
     MuiButton: {
       styleOverrides: {
         contained: {
-          color: "#fff",
+          color: WHITE,
           boxShadow: "0 2px 4px 0 rgba(0, 0, 0, 0.5)",
 
           "&.MuiDisabled": {
@@ -97,22 +107,22 @@ const theme: ThemeOptions = {
   },
   palette: {
     text: {
-      disabled: "#686868",
+      disabled: Greay_Dull,
     },
     grey: {
-      100: "#f7f7f7",
+      100: Greay_Light,
     },
     error: {
-      main: "#D10929",
+      main: Red,
     },
     success: {
       main: SUCCESS,
     },
     warning: {
-      main: "#ED6C02",
+      main: Orange,
     },
     info: {
-      main: "#0288D1",
+      main: Light_Blue,
     },
   },
   typography: {
