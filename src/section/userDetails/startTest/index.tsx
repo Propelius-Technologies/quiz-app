@@ -1,5 +1,5 @@
 import { Card } from '@/src/components/common/card';
-import { Avatar, Box, Button, Divider, Typography } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
 import CandidateDetail from "@/src/components/common/CandidateDetail";
 import Image from "next/image";
 
