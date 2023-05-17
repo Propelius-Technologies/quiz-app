@@ -1,5 +1,8 @@
 import { Box } from "@mui/material";
 import Head from "next/head";
+import SideBar from "../components/common/CustomSideBar";
+import Header from "../components/common/Header";
+import Assessment from "../components/sections/Assessment";
 
 export default function Home() {
   return (
@@ -11,7 +14,20 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        <Box></Box>
+        <Box>
+          <Box
+            sx={{
+              backgroundColor: "#181b32",
+              py: "100px",
+            }}
+          >
+            <Header />
+            <Box sx={{ display: "flex" }}>
+              <SideBar />
+              <Assessment />
+            </Box>
+          </Box>
+        </Box>
       </main>
     </>
   );

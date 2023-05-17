@@ -34,11 +34,11 @@ const theme: ThemeOptions = {
           },
           color: DARK_GREY,
           "&.Mui-checked": {
-            color: Primary_Green,
+            color: "#56cbd2",
           },
           "&:hover": {
             "& .MuiSvgIcon-root": {
-              color: Primary_Green,
+              color: "#56cbd2",
             },
           },
         },
@@ -106,6 +106,9 @@ const theme: ThemeOptions = {
     },
   },
   palette: {
+    primary: {
+      main: "#56cbd2",
+    },
     text: {
       disabled: Greay_Dull,
     },
