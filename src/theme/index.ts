@@ -34,11 +34,11 @@ const theme: ThemeOptions = {
           },
           color: DARK_GREY,
           "&.Mui-checked": {
-            color: "#56cbd2",
+            color: "#40BA77",
           },
           "&:hover": {
             "& .MuiSvgIcon-root": {
-              color: "#56cbd2",
+              color: "#40BA77",
             },
           },
         },
@@ -107,7 +107,7 @@ const theme: ThemeOptions = {
   },
   palette: {
     primary: {
-      main: "#56cbd2",
+      main: Primary_Green,
     },
     text: {
       disabled: Greay_Dull,
@@ -130,7 +130,9 @@ const theme: ThemeOptions = {
   },
   typography: {
     fontFamily: "Roboto",
-
+    allVariants: {
+      fontFamily: "public-sans",
+    },
     h1: {
       fontWeight: "bold",
       fontSize: "1.5rem", // 24px

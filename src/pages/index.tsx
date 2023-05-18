@@ -2,7 +2,7 @@ import { Box } from "@mui/material";
 import Head from "next/head";
 import SideBar from "../components/common/CustomSideBar";
 import Header from "../components/common/Header";
-import Assessment from "../components/sections/Assessment";
+import Assessment from "../components/sections/Assessment/Assessment";
 
 export default function Home() {
   return (
@@ -22,7 +22,7 @@ export default function Home() {
             }}
           >
             <Header />
-            <Box sx={{ display: "flex" }}>
+            <Box>
               <SideBar />
               <Assessment />
             </Box>

@@ -4,6 +4,7 @@ import CircularProgress, {
 } from "@mui/material/CircularProgress";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
+import { circularProgressBox, ProgressText } from "./styles";
 
 function CircularProgressWithLabel(
   props: CircularProgressProps & { value: number }
@@ -16,44 +17,27 @@ function CircularProgressWithLabel(
       }}
     >
       <CircularProgress variant="determinate" {...props} />
-      <Box
-        sx={{
-          top: 0,
-          left: 0,
-          bottom: 0,
-          right: 0,
-          position: "absolute",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          padding: "10px",
-        }}
-      >
+      <Box sx={circularProgressBox}>
         <Typography
           variant="caption"
           component="div"
           color="text.secondary"
-          sx={{
-            fontSize: "16px",
-            fontWeight: "bold",
-            fontFamily: "sans-serif",
-            color: "#efefef",
-          }}
-        >{`${Math.round(props.value)}`}</Typography>
+          sx={ProgressText}
+        >{`${Math.round((props.value * 60) / 100)}`}</Typography>
       </Box>
     </Box>
   );
 }
 
 export default function CircularStatic() {
-  const [progress, setProgress] = React.useState(10);
+  const [progress, setProgress] = React.useState(100);
 
   React.useEffect(() => {
     const timer = setInterval(() => {
       setProgress((prevProgress) =>
-        prevProgress >= 100 ? 0 : prevProgress + 1
+        prevProgress <= 0 ? 100 : prevProgress - 1
       );
-    }, 1000);
+    }, 640);
     return () => {
       clearInterval(timer);
     };

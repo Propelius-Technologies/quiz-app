@@ -6,63 +6,38 @@ import {
   ListItem,
   ListItemButton,
   ListItemIcon,
-  ListItemText,
   Toolbar,
+  useMediaQuery,
 } from "@mui/material";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
-import MailIcon from "@mui/icons-material/Mail";
 import React from "react";
+import {
+  DraweBox,
+  DrawerStyles,
+  ListItemIconStyle,
+  ListItemStyle,
+  ListStyles,
+} from "./styles";
 
-const drawerWidth = "fit-content";
 const tempArray = [
   1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
 ];
 
 const SideBar = () => {
+  const isSM = useMediaQuery("(max-width:834px)");
   return (
     <Box>
       <Drawer
         variant="permanent"
-        sx={{
-          width: drawerWidth,
-          flexShrink: 0,
-          [`& .MuiDrawer-paper`]: {
-            width: drawerWidth,
-            boxSizing: "border-box",
-            border: "none",
-          },
-        }}
+        anchor={isSM ? "top" : "left"}
+        sx={DrawerStyles}
       >
         <Toolbar />
-        <Box
-          sx={{ overflow: "auto", backgroundColor: "#282c48", border: "none" }}
-        >
-          <List>
-            {tempArray.map((text, index) => (
-              <ListItem
-                key={text}
-                disablePadding
-                sx={{
-                  cursor: "pointer",
-                  "&:hover": {
-                    backgroundColor: "#181b32",
-                  },
-                }}
-              >
+        <Box sx={DraweBox}>
+          <List sx={ListStyles}>
+            {tempArray.map((text) => (
+              <ListItem key={text} disablePadding sx={ListItemStyle}>
                 <ListItemButton>
-                  <ListItemIcon
-                    sx={{
-                      minWidth: "0",
-                      fontWeight: "bold",
-                      fontFamily: "sans-serif",
-                      fontSize: "20px",
-                      margin: "6px",
-                      color: "#56cbd2",
-                    }}
-                  >
-                    {text}
-                  </ListItemIcon>
-                  {/* <ListItemText primary={text} /> */}
+                  <ListItemIcon sx={ListItemIconStyle}>{text}</ListItemIcon>
                 </ListItemButton>
               </ListItem>
             ))}
