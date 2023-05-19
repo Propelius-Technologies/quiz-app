@@ -11,7 +11,7 @@ export const TestDetailsList: TestDetailsListProps[] = [
         time:'90 min',
     },
     {
-        test :'Descriptive Round',
+        test :'R&D Round',
         time:'90 min',
     },
     {

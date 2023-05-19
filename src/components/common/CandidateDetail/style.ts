@@ -10,7 +10,7 @@ export const Label ={
 }
 
 export const Value ={
-    width:'50%',
+    width:'60%',
     color:'#fff',
     fontSize: { xs: '13px', sm: '16px'},
     textOverflow: 'ellipsis',
