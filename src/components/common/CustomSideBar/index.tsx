@@ -1,3 +1,4 @@
+import { mockDataType } from "@/src/data/type";
 import {
   Box,
   Divider,
@@ -16,14 +17,25 @@ import {
   ListItemIconStyle,
   ListItemStyle,
   ListStyles,
+  selectedQueStyles,
 } from "./styles";
 
-const tempArray = [
-  1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
-];
+interface sideBarProps {
+  mockQuestionData: mockDataType[];
+  handleQuestion: (data: mockDataType, index: number) => void;
+  selectedQue: number;
+  SelectedQueIdArray: number[];
+}
 
-const SideBar = () => {
+const SideBar: React.FC<sideBarProps> = ({
+  mockQuestionData,
+  handleQuestion,
+  selectedQue,
+  SelectedQueIdArray,
+}) => {
   const isSM = useMediaQuery("(max-width:834px)");
+
+  console.log({ mockQuestionData });
   return (
     <Box>
       <Drawer
@@ -34,10 +46,17 @@ const SideBar = () => {
         <Toolbar />
         <Box sx={DraweBox}>
           <List sx={ListStyles}>
-            {tempArray.map((text) => (
-              <ListItem key={text} disablePadding sx={ListItemStyle}>
-                <ListItemButton>
-                  <ListItemIcon sx={ListItemIconStyle}>{text}</ListItemIcon>
+            {mockQuestionData.map((data, index: number) => (
+              <ListItem
+                key={index + 1}
+                disablePadding
+                sx={index === selectedQue ? selectedQueStyles : ListItemStyle}
+                // disabled={SelectedQueIdArray.includes(index) ? true : false}
+              >
+                <ListItemButton onClick={() => handleQuestion(data, index)}>
+                  <ListItemIcon sx={ListItemIconStyle}>
+                    {index + 1}
+                  </ListItemIcon>
                 </ListItemButton>
               </ListItem>
             ))}

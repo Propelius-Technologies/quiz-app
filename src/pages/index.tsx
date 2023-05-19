@@ -1,10 +1,36 @@
 import { Box } from "@mui/material";
 import Head from "next/head";
+import { useEffect, useState } from "react";
 import SideBar from "../components/common/CustomSideBar";
 import Header from "../components/common/Header";
 import Assessment from "../components/sections/Assessment/Assessment";
+import { mockQuestionData } from "../data/MockData";
+import { mockDataType } from "../data/type";
 
+let SelectedQueIdArray: number[] = [];
 export default function Home() {
+  const [queData, setQueData] = useState<mockDataType | undefined>(
+    mockQuestionData[0]
+  );
+  const [selectedQue, setSelectedQue] = useState<number>(0);
+  const [activeStep, setActiveStep] = useState(0);
+
+  const handleQuestion = (data: mockDataType, index: number) => {
+    console.log("getData", data);
+    SelectedQueIdArray.push(index);
+    setQueData(data);
+    setSelectedQue(index);
+  };
+
+  const handleNext = () => {
+    setActiveStep((prevActiveStep) => prevActiveStep + 5);
+
+    setQueData(mockQuestionData[selectedQue + 1]);
+    setSelectedQue(selectedQue + 1);
+  };
+
+  console.log({ queData });
+
   return (
     <>
       <Head>
@@ -23,8 +49,18 @@ export default function Home() {
           >
             <Header />
             <Box>
-              <SideBar />
-              <Assessment />
+              <SideBar
+                mockQuestionData={mockQuestionData}
+                handleQuestion={handleQuestion}
+                selectedQue={selectedQue}
+                SelectedQueIdArray={SelectedQueIdArray}
+              />
+              <Assessment
+                queData={queData}
+                activeStep={activeStep}
+                selectedQue={selectedQue}
+                handleNext={handleNext}
+              />
             </Box>
           </Box>
         </Box>

@@ -29,6 +29,10 @@ export const ListItemStyle = {
   },
 };
 
+export const selectedQueStyles = {
+  backgroundColor: "#181b32",
+};
+
 export const ListItemIconStyle = {
   minWidth: "0",
   fontWeight: "bold",

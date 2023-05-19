@@ -41,15 +41,22 @@ import {
 } from "./styles";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import CustomButton from "../../common/CustomButton";
+import { mockDataType } from "@/src/data/type";
 
-const Assessment = () => {
-  const [activeStep, setActiveStep] = React.useState(0);
+interface AssessmentProps {
+  // mockQuestionData: mockDataType[];
+  queData: mockDataType | undefined;
+  selectedQue: number;
+  activeStep: number;
+  handleNext: () => void;
+}
 
-  let tempArray = [1, 2, 3, 4];
-  const handleNext = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep + 10);
-  };
-
+const Assessment: React.FC<AssessmentProps> = ({
+  queData,
+  selectedQue,
+  activeStep,
+  handleNext,
+}) => {
   return (
     <>
       <Box sx={AssessmentBox}>
@@ -95,16 +102,14 @@ const Assessment = () => {
                 <Typography variant="h6" sx={TimeRemainingTextStyles}>
                   Time Remaining
                 </Typography>
-                <CircularStatic />
+                <CircularStatic activeStep={activeStep} />
               </Box>
             </Grid>
 
             <Grid item xs={12} sx={QuestionContainerStyles}>
               <Typography variant="h6" sx={QuestionTextStyles}>
-                <span>{`1)`}</span>
-                What changes would appear that is not appear but it can in the
-                component as soon as the state of the React component is
-                changed?
+                <span>{`${selectedQue + 1})`}</span>
+                {queData?.question}
               </Typography>
             </Grid>
 
@@ -116,34 +121,47 @@ const Assessment = () => {
                   name="radio-buttons-group"
                   onChange={(e) => console.log(e.target.value)}
                 >
-                  {tempArray.map((data, index) => {
-                    return (
-                      <>
-                        <FormControlLabel
-                          value={data}
-                          key={index}
-                          control={
-                            <Radio
-                              sx={{ color: "#71748b59" }}
-                              checkedIcon={<CheckCircleIcon />}
+                  {queData?.option && (
+                    <>
+                      {Object.entries(queData.option).map((data, index) => {
+                        console.log({ data });
+                        return (
+                          <>
+                            <FormControlLabel
+                              value={data[1]}
+                              key={index}
+                              control={
+                                <Radio
+                                  sx={{ color: "#71748b59" }}
+                                  checkedIcon={<CheckCircleIcon />}
+                                />
+                              }
+                              label={data[1]}
+                              sx={FormControlLabelStyle}
                             />
-                          }
-                          label="Please Select Any one Option"
-                          sx={FormControlLabelStyle}
-                        />
-                      </>
-                    );
-                  })}
+                          </>
+                        );
+                      })}
+                    </>
+                  )}
                 </RadioGroup>
               </FormControl>
             </Grid>
-
             <Grid item xs={12} sx={customButtonContainer}>
-              <CustomButton
-                onclick={handleNext}
-                label="Next question"
-                activeStep={activeStep}
-              />
+              {activeStep === 95 ? (
+                <CustomButton
+                  onclick={handleNext}
+                  label="submit"
+                  activeStep={activeStep}
+                />
+              ) : (
+                <CustomButton
+                  onclick={handleNext}
+                  label="Next question"
+                  activeStep={activeStep}
+                  // #50b77ee0
+                />
+              )}
             </Grid>
           </Grid>
         </Paper>
