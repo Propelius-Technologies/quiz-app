@@ -1,4 +1,5 @@
-import {Box, Typography} from '@mui/material'
+import {Box,Typography} from '@mui/material'
+import {Label, MainBox, Value} from "@/src/components/common/CandidateDetail/style";
 
 
 interface  CandidateDetailsProps{
@@ -7,28 +8,9 @@ interface  CandidateDetailsProps{
 }
 const CandidateDetail = ({label,value }: CandidateDetailsProps) => {
     return (
-        <Box sx={{ width: 'fit-content', display: 'flex', gap: '20px' }}>
-            <Typography
-                sx={{
-                    width: '50%',
-                    flexShrink:0,
-                    fontSize: { xs: '12px', sm: '16px' },
-                    fontWeight: '600',
-                }}
-            >
-                {label} :
-            </Typography>
-            <Typography
-                sx={{
-                    width:'50%',
-                    flexShrink:0,
-                    fontSize: { xs: '12px', sm: '16px' },
-                    textOverflow: 'ellipsis',
-                    overflow: 'hidden',
-                }}
-            >
-                {value}
-            </Typography>
+        <Box sx={MainBox}  >
+            <Typography sx={Label}> {label} : </Typography>
+            <Typography sx={Value}> {value} </Typography>
         </Box>
     )
 }

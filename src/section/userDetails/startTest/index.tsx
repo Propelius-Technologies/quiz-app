@@ -1,34 +1,47 @@
 import { Card } from '@/src/components/common/card';
-import { Box, Button, Typography } from "@mui/material";
-import CandidateDetail from "@/src/components/common/CandidateDetail";
+import {Box, Button, Grid, Typography} from "@mui/material";
 import Image from "next/image";
+import {TestDetailsList} from "@/src/mock/testDetails";
+import {
+    Description,
+    ListCard, ListContainerCard,
+    MainBox,
+    MainCard, StartTestButton, StartTestButtonBox,
+    TestHeader,
+    TestHeading, TestRound
+} from "@/src/section/userDetails/startTest/style";
+import {assets} from "@/src/assets/assets";
 
 interface StartTestProps { }
 
 const StartTest = ({}: StartTestProps) => {
     return (
-        <Box sx={{ margin: '30px 15px', display: "flex", justifyContent: "center" }}>
-            <Card direction="column" sx={{
-                padding: { xs: '15px', sm: '50px' },
-                gap: '50px',
-                width: { xs: '100%', sm: 'fit-content' },
-                maxWidth: '100%'
-            }}>
-                <Box sx={{ display: 'flex', gap: '20px' }}>
-                    <Image src='/images/verified-document.svg' alt={'verified document'} width={60} height={60} />
+        <Box sx={MainBox}>
+            <Card direction="column" sx={MainCard} background={'#282C48'} >
+                <Box sx={TestHeader}>
+                    <Image src={assets.images.DOCUMENT_ICON} alt={'verified document'}  width={60} height={60} />
                     <Box>
-                        <Typography sx={{ fontSize: '20px', fontWeight: '700' }}>Your test is ready</Typography>
-                        <Typography sx={{ fontSize: { xs: '10px', sm: '16px' } }}>Your customized test has been successfully generated.</Typography>
+                        <Typography sx={TestHeading}>Your test is ready</Typography>
+                        <Typography sx={Description}>Your customized test has been successfully generated.</Typography>
                     </Box>
                 </Box>
-                <Card direction="column" sx={{ border: '1px solid #000', width: 'fit-content',padding:{sm:'24px',xs:'10px'}}}>
-                    <CandidateDetail label={'Aptitute Round'} value={'60 min'} />
-                    <CandidateDetail label={'Technical Round'} value={'20 min'} />
-                    <CandidateDetail label={'Descriptive Round'} value={'30 min'} />
-                    <CandidateDetail label={'R&D Round'} value={'50 min'} />
-                    <CandidateDetail label={'Coding Round'} value={'1 hr'} />
+                <Card background={'#181B32'} sx={ListContainerCard}>
+                    <Grid container spacing={5}>
+                        {TestDetailsList.map((data,index)=>{
+                            return(
+                                <Grid item xs={12} sm={12} md={6} key={index}>
+                                    <Card background={'#282C48'}  width={'100%'} sx={ListCard}>
+                                        <Typography sx={TestRound}>{data.test} </Typography>
+                                        <Typography sx={TestRound}>{data.time}</Typography>
+                                    </Card>
+                                </Grid>
+                            )
+                        })}
+                    </Grid>
                 </Card>
-                <Button variant="contained" fullWidth sx={{ backgroundColor: '#0359a3', maxWidth: '100%' }}>Start your test</Button>
+                <Box sx={StartTestButtonBox}>
+                <Button variant="contained"  sx={StartTestButton} >Start your test</Button>
+                </Box>
             </Card>
         </Box>
     );
