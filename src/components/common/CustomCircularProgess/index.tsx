@@ -33,14 +33,20 @@ export default function CircularStatic({ activeStep }: { activeStep: number }) {
   const [progress, setProgress] = React.useState(100);
   React.useEffect(() => {
     const timer = setInterval(() => {
-      setProgress((prevProgress) =>
-        prevProgress <= 0 ? 100 : prevProgress - 1
-      );
+      setProgress((prevProgress) => {
+        if (prevProgress <= 0) {
+          clearInterval(timer); // Stop the timer
+          return 0; // Set progress to 0
+        } else {
+          return prevProgress - 1; // Decrement progress
+        }
+      });
     }, 640);
+    setProgress(100);
     return () => {
       clearInterval(timer);
     };
-  }, [activeStep]);
+  }, []);
 
   return <CircularProgressWithLabel value={progress} />;
 }

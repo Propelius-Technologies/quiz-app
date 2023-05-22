@@ -10,3 +10,9 @@ export interface LoaderSliceProps {
   enableLoader: () => void;
   disableLoader: () => void;
 }
+
+export interface TestSliceProps {
+  // TODO REMOVE THIS
+  tests: any;
+  fetchTests: () => void;
+}
