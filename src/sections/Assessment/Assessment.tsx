@@ -11,7 +11,7 @@ import {
   Typography,
 } from "@mui/material";
 import { Box } from "@mui/system";
-import React from "react";
+import React, { useEffect } from "react";
 import PersonOutlineTwoToneIcon from "@mui/icons-material/PersonOutlineTwoTone";
 import {
   AssessmentBox,
@@ -41,20 +41,35 @@ import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import CircularStatic from "@/src/components/common/CustomCircularProgess";
 import { mockDataType } from "@/src/data/type";
 import CustomButton from "@/src/components/common/CustomButton";
+import useStore from "@/src/zustand-store";
+import { useRouter } from "next/router";
+import { getQuestions } from "@/src/zustand-store/test/test.selector";
 
 interface AssessmentProps {
-  queData: mockDataType | undefined;
   selectedQue: number;
   activeStep: number;
   handleNext: () => void;
 }
 
+interface stepComponentProps {
+  question?: mockDataType | undefined;
+  selectedQue: number;
+  activeStep: number;
+  handleNext: () => void;
+  queId: number;
+}
+
 const getStepContent = ({
-  queData,
+  question,
   activeStep,
   handleNext,
   selectedQue,
-}: AssessmentProps) => {
+  queId,
+}: stepComponentProps) => {
+  const handleSubmit = () => {
+    console.log("bhgu");
+  };
+
   return (
     <Grid container spacing={2} sx={InnerContainerstyles}>
       <Grid item xs={12} sx={leftAnswerContainerStyle}>
@@ -71,8 +86,8 @@ const getStepContent = ({
 
       <Grid item xs={12} sx={QuestionContainerStyles}>
         <Typography variant="h6" sx={QuestionTextStyles}>
-          <span>{`${selectedQue + 1})`}</span>
-          {queData?.question}
+          <span>{`${queId})`}</span>
+          {question?.question}
         </Typography>
       </Grid>
 
@@ -84,9 +99,9 @@ const getStepContent = ({
             name="radio-buttons-group"
             onChange={(e) => console.log(e.target.value)}
           >
-            {queData?.option && (
+            {question?.option && (
               <>
-                {Object.entries(queData.option).map((data, index) => {
+                {Object.entries(question.option).map((data, index) => {
                   return (
                     <>
                       <FormControlLabel
@@ -112,7 +127,7 @@ const getStepContent = ({
       <Grid item xs={12} sx={customButtonContainer}>
         {activeStep === 95 ? (
           <CustomButton
-            onclick={handleNext}
+            onclick={handleSubmit}
             label="submit"
             activeStep={activeStep}
           />
@@ -129,11 +144,23 @@ const getStepContent = ({
 };
 
 const Assessment: React.FC<AssessmentProps> = ({
-  queData,
   selectedQue,
   activeStep,
   handleNext,
 }) => {
+  const { query } = useRouter();
+  const { testid, questionid } = query;
+  const fetchTests = useStore((state) => state.fetchTests);
+  const getQuestion = useStore((state) => getQuestions(state, testid));
+  const question = getQuestion ? getQuestion[Number(questionid)] : {};
+
+  const queId = Number(questionid);
+
+  console.log({ question });
+  useEffect(() => {
+    fetchTests();
+  }, [fetchTests]);
+
   return (
     <>
       <Box sx={AssessmentBox}>
@@ -153,13 +180,15 @@ const Assessment: React.FC<AssessmentProps> = ({
 
               <Box>
                 <Typography variant="h6" sx={userTotalCompletedTextStyles}>
-                  {`Total test: ${activeStep}% completed`}
+                  {`Total test: ${
+                    getQuestions.length && (queId / getQuestions?.length) * 100
+                  }% completed`}
                 </Typography>
                 <MobileStepper
                   variant="progress"
-                  steps={100}
+                  steps={getQuestion?.length + 1}
                   position="static"
-                  activeStep={activeStep}
+                  activeStep={queId}
                   sx={MobileStepperStyles}
                   nextButton={null}
                   backButton={null}
@@ -169,7 +198,13 @@ const Assessment: React.FC<AssessmentProps> = ({
           </Grid>
 
           <Divider sx={DividerStyles} />
-          {getStepContent({ queData, activeStep, handleNext, selectedQue })}
+          {getStepContent({
+            question,
+            queId,
+            activeStep,
+            handleNext,
+            selectedQue,
+          })}
         </Paper>
       </Box>
     </>
