@@ -38,10 +38,7 @@ fontSize: {sm:'56px',xs:'26px'},
     fontWeight:'600',
 }
 
-
-
 export const DetailCard ={
-   
     marginTop:'20px',
         marginBottom:'30px',
         padding: "16px",
@@ -53,7 +50,6 @@ export const DetailCard ={
         background: "#181B32",
         borderBottomLeftRadius: "16px",
         borderBottomRightRadius: "16px",
-
     
 }
 
@@ -62,4 +58,11 @@ export const DetailText ={
      fontSize: {sm:'22px',xs:'16px'},
     fontWeight: '500',
     color:'#fff'
+}
+
+export const CandidateName ={
+    color: "#fff", fontSize: {sm:"32px",xs:'22px'}, fontWeight: "700",marginBottom:'20px'
+}
+export const PersonDetails ={
+    marginTop:'20px',display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center'
 }

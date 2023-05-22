@@ -1,15 +1,15 @@
-import {Avatar, Button, Divider, Card, Typography, Box} from "@mui/material";
+import {Avatar,Divider, Card, Typography, Box} from "@mui/material";
 import { CandidateDetailsList } from "@/src/mock/candidateDetails";
 import {
     Avtar, AvtarBox,
-    AvtarName, DetailCard,
+    AvtarName, CandidateName, DetailCard,
     DetailText, MainBox,
-    MainCard,
+    MainCard, PersonDetails
     
 } from "@/src/section/userDetails/candidateDetails/style";
 
 
-interface CandidateDetailsProps { }
+interface CandidateDetailsProps {}
 
 const CandidateDetails = ({}: CandidateDetailsProps) => {
     return (
@@ -24,15 +24,18 @@ const CandidateDetails = ({}: CandidateDetailsProps) => {
                     </Avatar>
                 </Box>
                 <Box sx={DetailCard}>
-                    <Typography sx={{ color: "#fff", fontSize: {sm:"32px",xs:'22px'}, fontWeight: "700" }}>
+                    <Typography sx={CandidateName}>
                         {CandidateDetailsList?.firstName} {CandidateDetailsList?.lastName}
                     </Typography>
-                    <Typography sx={DetailText}>
+                    <Divider sx={{color:'#fff',width:'100%'}}/>
+                    <Box sx={PersonDetails}>
+                        <Typography sx={DetailText}>
                         {CandidateDetailsList?.email}
                     </Typography>
                     <Typography sx={DetailText}>
                         {CandidateDetailsList?.position}
                     </Typography>
+                    </Box>
                 </Box>
             </Box>
         </Card>

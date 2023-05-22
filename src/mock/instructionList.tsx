@@ -1,6 +1,4 @@
 
-
-
 export const InstructionList: string[] = [
     'Once you start the test, please do not switch to other tabs or applications on your device.',
     'Switching tabs or applications during the test will result in the automatic submission of your test, and your progress will be recorded up until that point.',

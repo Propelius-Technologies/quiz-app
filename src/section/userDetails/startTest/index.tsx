@@ -1,4 +1,5 @@
-import {Box, Button, Grid, Card,Typography} from "@mui/material";
+import {Box, Button, Grid, Card, Typography, IconButton} from "@mui/material";
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import Image from "next/image";
 import {TestDetailsList} from "@/src/mock/testDetails";
 import {
@@ -15,6 +16,7 @@ import Instructions from "@/src/section/userDetails/Instructions";
 interface StartTestProps { }
 
 const StartTest = ({}: StartTestProps) => {
+    
     return (
         <Box sx={MainBox}>
             <Card  sx={MainCard} >
@@ -30,9 +32,16 @@ const StartTest = ({}: StartTestProps) => {
                         {TestDetailsList.map((data,index)=>{
                             return(
                                 <Grid item xs={12} sm={12} md={12} lg={6} key={index}>
-                                    <Card sx={ListCard}>
+                                    <Card sx={{...ListCard,backgroundColor: data.isActive ? '#40BA77' : '#282C48'}}>
                                         <Typography sx={TestRound}>{data.test} </Typography>
-                                        <Typography sx={TestRound}>{data.time}</Typography>
+                                        <Typography sx={TestRound}>
+                                            {data.isCompleted ? (
+                                                <IconButton size="small" color="inherit">
+                                                    <CheckCircleIcon sx={{width:'30px',height:'30px',color:'#40BA77'}} />
+                                                </IconButton>
+                                            ) :data.time}
+                                            
+                                        </Typography>
                                     </Card>
                                 </Grid>
                             )

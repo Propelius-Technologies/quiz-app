@@ -1,5 +1,4 @@
 
-
 interface  CandidateDetailsListProps{
     firstName:string
     lastName:string

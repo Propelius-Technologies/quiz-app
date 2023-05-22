@@ -37,6 +37,7 @@ export const ListContainerCard ={
     backgroundColor:'#181B32'
 }
 
+
 export const ListCard={
     padding:'24px',
     width:'100%',
@@ -44,11 +45,12 @@ export const ListCard={
     backgroundColor:'#282C48',
     borderRadius: '10px',
     boxShadow: '0 8px 20px rgba(0, 0, 0, 0.05)',
-    display:'flex',justifyContent:'space-between'
+    display:'flex',justifyContent:'space-between',
+    alignItems:'center'
 }
 
 export const TestRound = {
-    color:'#fff',fontSize:'16px'
+    color:'#fff',fontSize:'16px',fontWeight: 600
 }
 
 export const StartTestButtonBox ={

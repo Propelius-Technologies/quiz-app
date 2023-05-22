@@ -127,7 +127,7 @@ const theme: ThemeOptions = {
     info: {
       main: Light_Blue,
     },
-    divider: 'rgba(242,242,242,1)',
+    divider: '#FFF',
   },
   typography: {
     fontFamily: "Roboto",
