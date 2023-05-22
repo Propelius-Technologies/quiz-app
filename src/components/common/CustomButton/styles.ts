@@ -2,9 +2,11 @@ import { Primary_Green } from "@/src/theme/colors";
 
 export const ButtonStyle = {
   width: "fit-content",
-  backgroundColor: Primary_Green,
-  px: "35px",
-  fontSize: "24px",
-  fontWeight: "500",
+  borderRadius: { sm: "2px", xs: "3px" },
+  px: { sm: "35px", xs: "20px" },
+  py: "6px",
+  fontSize: { sm: "20px", xs: "16px" },
   height: "fit-content",
+  fontFamily: "sans-serif",
+  fontWeight: "bold",
 };

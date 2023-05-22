@@ -19,4 +19,4 @@ export const Red = "#D10929";
 export const Orange = "#ED6C02";
 export const Light_Blue = "#0288D1";
 
-export const Primary_Green = "#46a997";
+export const Primary_Green = "#40BA77";
