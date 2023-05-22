@@ -1,7 +1,10 @@
 import { AppStateCreator } from "../types";
 
-export interface CandidateSlice { }
+export interface CandidateSlice {}
 
-const createCandidateSlice: AppStateCreator<CandidateSlice> = (set, get) => ({})
+const createCandidateSlice: AppStateCreator<CandidateSlice> = (
+  set,
+  get
+) => ({});
 
-export default createCandidateSlice
+export default createCandidateSlice;

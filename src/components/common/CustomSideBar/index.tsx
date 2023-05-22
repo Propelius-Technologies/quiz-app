@@ -1,3 +1,6 @@
+import { AppRoutes } from "@/src/constant/appRoutes";
+import { mockDataType } from "@/src/data/type";
+import { pushHandler } from "@/src/utils/genericRouting";
 import {
   Box,
   Divider,
@@ -9,6 +12,7 @@ import {
   Toolbar,
   useMediaQuery,
 } from "@mui/material";
+import { useRouter } from "next/router";
 import React from "react";
 import {
   DraweBox,
@@ -18,22 +22,19 @@ import {
   ListStyles,
   selectedQueStyles,
 } from "./styles";
-import {mockDataType} from "@/src/data/type";
+
 
 interface sideBarProps {
   mockQuestionData: mockDataType[];
-  handleQuestion: (data: mockDataType, index: number) => void;
-  selectedQue: number;
-  SelectedQueIdArray: number[];
 }
 
-const SideBar: React.FC<sideBarProps> = ({
-  mockQuestionData,
-  handleQuestion,
-  selectedQue,
-}) => {
+const SideBar: React.FC<sideBarProps> = ({ mockQuestionData }) => {
   const isSM = useMediaQuery("(max-width:834px)");
 
+  const router = useRouter();
+  const { testid, questionid } = router.query;
+
+  
 
   return (
     <Box>
@@ -49,10 +50,23 @@ const SideBar: React.FC<sideBarProps> = ({
               <ListItem
                 key={index + 1}
                 disablePadding
-                sx={index === selectedQue ? selectedQueStyles : ListItemStyle}
+                sx={
+                  index + 1 === Number(questionid)
+                    ? selectedQueStyles
+                    : ListItemStyle
+                }
                 // disabled={SelectedQueIdArray.includes(index) ? true : false}
               >
-                <ListItemButton onClick={() => handleQuestion(data, index)}>
+                <ListItemButton
+                  onClick={() =>
+                    pushHandler(
+                      AppRoutes.question(
+                        testid as string,
+                        (index as number) + 1
+                      )
+                    )
+                  }
+                >
                   <ListItemIcon sx={ListItemIconStyle}>
                     {index + 1}
                   </ListItemIcon>
