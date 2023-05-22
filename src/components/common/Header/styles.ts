@@ -21,3 +21,10 @@ export const TextStyles = {
   color: "#40BA77",
   fontSize: { sm: "18px ", xs: "14px" },
 };
+
+export const TextRoundStyles = {
+  fontFamily: "sans-serif",
+  fontWeight: "bold",
+  color: "#40BA77",
+  fontSize: { sm: "20px ", xs: "14px" },
+};

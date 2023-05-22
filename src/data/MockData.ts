@@ -1,3 +1,5 @@
+import { Password } from "@mui/icons-material";
+
 export const mockQuestionData = [
   {
     question:
@@ -225,3 +227,15 @@ export const mockQuestionData = [
 //   },
 //   type: "mcq" || "descriptive",
 // },
+
+export const userData = {
+  name: "Bidyut Samanta",
+  emailId: "bs@hotmail.com",
+  password: "bs@123",
+};
+
+export interface userDataTypes {
+  name?: string;
+  emailId?: string;
+  password?: string;
+}

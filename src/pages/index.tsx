@@ -6,6 +6,7 @@ import Header from "../components/common/Header";
 import Assessment from "../components/sections/Assessment/Assessment";
 import { mockQuestionData } from "../data/MockData";
 import { mockDataType } from "../data/type";
+import useStore from "../zustand-store";
 
 let SelectedQueIdArray: number[] = [];
 export default function Home() {
@@ -14,6 +15,14 @@ export default function Home() {
   );
   const [selectedQue, setSelectedQue] = useState<number>(0);
   const [activeStep, setActiveStep] = useState(0);
+
+  const user = useStore((state) => state.user);
+  const fetchUser = useStore((state) => state.fetchUser);
+
+  useEffect(() => {
+    fetchUser();
+  }, [fetchUser]);
+  console.log(user);
 
   const handleQuestion = (data: mockDataType, index: number) => {
     console.log("getData", data);
@@ -28,8 +37,6 @@ export default function Home() {
     setQueData(mockQuestionData[selectedQue + 1]);
     setSelectedQue(selectedQue + 1);
   };
-
-  console.log({ queData });
 
   return (
     <>
