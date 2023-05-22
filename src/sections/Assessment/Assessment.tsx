@@ -1,6 +1,5 @@
 import {
   Avatar,
-  Button,
   Divider,
   FormControl,
   FormControlLabel,
@@ -14,7 +13,6 @@ import {
 import { Box } from "@mui/system";
 import React from "react";
 import PersonOutlineTwoToneIcon from "@mui/icons-material/PersonOutlineTwoTone";
-import CircularStatic from "../../common/CustomCircularProgess";
 import {
   AssessmentBox,
   AvatarContainer,
@@ -40,11 +38,11 @@ import {
   userTotalCompletedTextStyles,
 } from "./styles";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
-import CustomButton from "../../common/CustomButton";
+import CircularStatic from "@/src/components/common/CustomCircularProgess";
 import { mockDataType } from "@/src/data/type";
+import CustomButton from "@/src/components/common/CustomButton";
 
 interface AssessmentProps {
-  // mockQuestionData: mockDataType[];
   queData: mockDataType | undefined;
   selectedQue: number;
   activeStep: number;
@@ -159,7 +157,6 @@ const Assessment: React.FC<AssessmentProps> = ({
                   onclick={handleNext}
                   label="Next question"
                   activeStep={activeStep}
-                  // #50b77ee0
                 />
               )}
             </Grid>

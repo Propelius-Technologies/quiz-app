@@ -1,11 +1,11 @@
 import { Box } from "@mui/material";
 import Head from "next/head";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import SideBar from "../components/common/CustomSideBar";
 import Header from "../components/common/Header";
-import Assessment from "../components/sections/Assessment/Assessment";
 import { mockQuestionData } from "../data/MockData";
 import { mockDataType } from "../data/type";
+import Assessment from "../sections/Assessment/Assessment";
 
 let SelectedQueIdArray: number[] = [];
 export default function Home() {
