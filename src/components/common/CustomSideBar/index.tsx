@@ -31,7 +31,6 @@ const SideBar: React.FC<sideBarProps> = ({
   mockQuestionData,
   handleQuestion,
   selectedQue,
-  SelectedQueIdArray,
 }) => {
   const isSM = useMediaQuery("(max-width:834px)");
 
