@@ -5,6 +5,8 @@ import CircularProgress, {
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import { circularProgressBox, ProgressText } from "./styles";
+import { useRouter } from "next/router";
+import { Danger, Primary_Green } from "@/src/theme/colors";
 
 function CircularProgressWithLabel(
   props: CircularProgressProps & { value: number }
@@ -16,7 +18,14 @@ function CircularProgressWithLabel(
         display: "inline-flex",
       }}
     >
-      <CircularProgress variant="determinate" {...props} />
+      <CircularProgress
+        sx={{
+          color:
+            Math.round((props.value * 60) / 100) > 10 ? Primary_Green : Danger,
+        }}
+        variant="determinate"
+        {...props}
+      />
       <Box sx={circularProgressBox}>
         <Typography
           variant="caption"
@@ -29,7 +38,8 @@ function CircularProgressWithLabel(
   );
 }
 
-export default function CircularStatic({ activeStep }: { activeStep: number }) {
+export default function CircularStatic() {
+  const { query: questionid } = useRouter();
   const [progress, setProgress] = React.useState(100);
   React.useEffect(() => {
     const timer = setInterval(() => {
@@ -46,7 +56,7 @@ export default function CircularStatic({ activeStep }: { activeStep: number }) {
     return () => {
       clearInterval(timer);
     };
-  }, []);
+  }, [questionid]);
 
   return <CircularProgressWithLabel value={progress} />;
 }

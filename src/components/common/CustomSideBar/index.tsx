@@ -31,10 +31,10 @@ interface sideBarProps {
 const SideBar: React.FC<sideBarProps> = ({ mockQuestionData }) => {
   const isSM = useMediaQuery("(max-width:834px)");
 
-  const router = useRouter();
-  const { testid, questionid } = router.query;
+  const {
+    query: { testid, questionid },
+  } = useRouter();
 
-  console.log({ mockQuestionData });
   return (
     <Box>
       <Drawer
@@ -54,7 +54,6 @@ const SideBar: React.FC<sideBarProps> = ({ mockQuestionData }) => {
                     ? selectedQueStyles
                     : ListItemStyle
                 }
-                // disabled={SelectedQueIdArray.includes(index) ? true : false}
               >
                 <ListItemButton
                   onClick={() =>
