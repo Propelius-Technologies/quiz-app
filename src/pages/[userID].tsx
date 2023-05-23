@@ -1,8 +1,9 @@
 import Authentication from "@/src/sections/Authentication";
-import { getAuth,GoogleAuthProvider,signInWithPopup} from "@firebase/auth";
+import {getAuth, GoogleAuthProvider, signInWithPopup, signInWithRedirect} from "@firebase/auth";
 import {useState} from "react";
 import {useRouter} from "next/router";
 import {fireBaseApp} from "../../firebase.config";
+
 
 
 interface GoogleAuthProps  {
@@ -16,21 +17,23 @@ const GoogleAuth = () =>{
  
         const handleGoogleAuth = async () => {
         setIsLoading(true)
-            try {
-                const response = await signInWithPopup(firebaseAuth, provider);
-               if(response){
-                   if(response.user.email === 'monika.tiwari@propelius.tech'){
-                       setIsLoading(false)
-                       router.push('/user')
-                   }
-               }
-                else {
-                  console.log('invalid email id')
+            const response = await signInWithPopup(firebaseAuth, provider).catch(err => {
+                return err
+            })
+            if (response.code && response.code === 'auth/popup-closed-by-user') {
+                setIsLoading(false)
+                
+            } else {
+                console.log({response})
+                if (response.user?.email === 'monika.tiwari@propelius.tech') {
+                    setIsLoading(false);
+                    router.push('/');
+                } else {
+                    console.log('Invalid email id');
                 }
-            } catch (error) {
-                console.log(error);
             }
         }
+        
     
     return (
         <>
