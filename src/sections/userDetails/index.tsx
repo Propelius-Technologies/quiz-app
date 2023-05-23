@@ -1,7 +1,7 @@
 import {Box, Grid} from "@mui/material";
-import CandidateDetails from "@/src/section/userDetails/candidateDetails";
-import StartTest from "@/src/section/userDetails/startTest";
-import {MainBox} from "@/src/section/userDetails/style";
+import CandidateDetails from "@/src/sections/userDetails/candidateDetails";
+import StartTest from "@/src/sections/userDetails/startTest";
+import {MainBox} from "@/src/sections/userDetails/style";
 
 interface UserDetailsProps { }
 

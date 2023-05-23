@@ -9,9 +9,9 @@ import {
     MainCard, StartTestButton, StartTestButtonBox,
     TestHeader,
     TestHeading, TestRound
-} from "@/src/section/userDetails/startTest/style";
+} from "@/src/sections/userDetails/startTest/style";
 import {assets} from "@/src/assets/assets";
-import Instructions from "@/src/section/userDetails/Instructions";
+import Instructions from "@/src/sections/userDetails/Instructions";
 
 interface StartTestProps { }
 

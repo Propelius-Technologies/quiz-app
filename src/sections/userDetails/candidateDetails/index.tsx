@@ -6,7 +6,7 @@ import {
     DetailText, MainBox,
     MainCard, PersonDetails
     
-} from "@/src/section/userDetails/candidateDetails/style";
+} from "@/src/sections/userDetails/candidateDetails/style";
 
 
 interface CandidateDetailsProps {}

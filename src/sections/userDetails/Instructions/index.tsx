@@ -6,7 +6,7 @@ import {
     InstructionCard,
     InstructionText,
     InstructionTitle
-} from "@/src/section/userDetails/Instructions/style";
+} from "@/src/sections/userDetails/Instructions/style";
 
 interface InstructionsProps{}
 const Instructions = ({}: InstructionsProps) => {
