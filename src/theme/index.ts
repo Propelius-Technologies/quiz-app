@@ -34,11 +34,11 @@ const theme: ThemeOptions = {
           },
           color: DARK_GREY,
           "&.Mui-checked": {
-            color: "#40BA77",
+            color: Primary_Green,
           },
           "&:hover": {
             "& .MuiSvgIcon-root": {
-              color: "#40BA77",
+              color: Primary_Green,
             },
           },
         },
@@ -127,6 +127,7 @@ const theme: ThemeOptions = {
     info: {
       main: Light_Blue,
     },
+    divider: '#FFF',
   },
   typography: {
     fontFamily: "Roboto",

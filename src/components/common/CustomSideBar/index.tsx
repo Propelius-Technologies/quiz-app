@@ -1,4 +1,3 @@
-import { mockDataType } from "@/src/data/type";
 import {
   Box,
   Divider,
@@ -19,6 +18,7 @@ import {
   ListStyles,
   selectedQueStyles,
 } from "./styles";
+import {mockDataType} from "@/src/data/type";
 
 interface sideBarProps {
   mockQuestionData: mockDataType[];
@@ -31,7 +31,6 @@ const SideBar: React.FC<sideBarProps> = ({
   mockQuestionData,
   handleQuestion,
   selectedQue,
-  SelectedQueIdArray,
 }) => {
   const isSM = useMediaQuery("(max-width:834px)");
 
