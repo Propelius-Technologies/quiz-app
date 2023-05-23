@@ -2,7 +2,8 @@ import { Box, Typography} from "@mui/material";
 import GOOGLE_ICON from '@/src/assets/svgs/GoogleIcon.svg'
 import Image from "next/image";
 import OutlineButton from "@/src/components/common/CustomButton/OutlineButton";
-import {Button, MainBox, SignIN, WelcomeBox, WelcomeMessage} from "@/src/sections/Authentication/style";
+import {Button, ButtonText, Logo, MainBox, SignIN, WelcomeBox} from "@/src/sections/Authentication/style";
+import PROPELIUS_LOGO from "@/src/assets/svgs/propelius_logo.svg"
 
 interface AuthenticationProps{
     handleGoogleAuth : () => void,
@@ -12,24 +13,24 @@ interface AuthenticationProps{
 const Authentication = ({handleGoogleAuth,isLoading}:AuthenticationProps) =>{
     return(
         <>
-         <Box sx={MainBox}>
-            <Box sx={WelcomeBox}>
-                <Typography sx={WelcomeMessage}>
-                    Welcome To Propelius <br/> Technologies
-                </Typography>
-             
-                <Typography sx={SignIN}>Please sign in with your provided email to get started</Typography>
-                <Box sx={Button}>
-                    <OutlineButton
-                        loading={isLoading}
-                        onClick={handleGoogleAuth}
-                        title="Sign in with Google"
-                        startIcon={!isLoading && <Image src={GOOGLE_ICON} height={23} width={23} alt="Google Icon" />}
-                    />
+            <Box sx={MainBox}>
+                <Box sx={WelcomeBox}>
+                    <Box sx={Logo}>
+                        <Image src={PROPELIUS_LOGO} alt={'logo'} layout="responsive" width={50} height={50} />
+                        <Typography sx={SignIN}>Please sign in with your provided email to get started</Typography>
+                    </Box>
+                    <Box sx={Button}>
+                        <OutlineButton
+                            sx={ButtonText}
+                            loading={isLoading}
+                            onClick={handleGoogleAuth}
+                            title="Sign in with Google"
+                            startIcon={!isLoading && <Image src={GOOGLE_ICON} height={23} width={23} alt="Google Icon" />}
+                        />
+                    </Box>
+                  
                 </Box>
             </Box>
-            
-         </Box>
         </>
     )
 }
