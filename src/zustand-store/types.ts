@@ -1,4 +1,5 @@
 import { StateCreator } from "zustand";
+import { TestDataType } from "../data/type";
 
 export type AppStateCreator<T extends Object> = StateCreator<
   T,
@@ -13,6 +14,8 @@ export interface LoaderSliceProps {
 
 export interface TestSliceProps {
   // TODO REMOVE THIS
-  tests: any;
+  tests: TestDataType[];
+  selectedAnswer: string | undefined;
   fetchTests: () => void;
+  setSelectedAnswer: (value: string | undefined) => void;
 }

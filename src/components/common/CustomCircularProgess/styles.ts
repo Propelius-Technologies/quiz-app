@@ -8,6 +8,7 @@ export const circularProgressBox = {
   alignItems: "center",
   justifyContent: "center",
   padding: "10px",
+  color: "red",
 };
 
 export const ProgressText = {

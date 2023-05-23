@@ -2,37 +2,29 @@ import SideBar from "@/src/components/common/CustomSideBar";
 import Header from "@/src/components/common/Header";
 import { AppRoutes } from "@/src/constant/appRoutes";
 import { mockQuestionData } from "@/src/data/MockData";
-import { mockDataType } from "@/src/data/type";
-import Assessment from "@/src/sections/Assessment/Assessment";
+import Assessment from "@/src/sections/Assessment";
 import { pushHandler } from "@/src/utils/genericRouting";
 import useStore from "@/src/zustand-store";
 import { getQuestions } from "@/src/zustand-store/test/test.selector";
 import { Box } from "@mui/material";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import { useState } from "react";
-// import SideBar from "../components/common/CustomSideBar";
-// import Header from "../components/common/Header";
-// import { mockQuestionData } from "../data/MockData";
-// import Assessment from "../sections/Assessment/Assessment";
 
-let SelectedQueIdArray: number[] = [];
 export default function Home() {
-  const [queData, setQueData] = useState<mockDataType | undefined>(
-    mockQuestionData[0]
-  );
-  const [selectedQue, setSelectedQue] = useState<number>(0);
-  const [activeStep, setActiveStep] = useState(0);
-  const router = useRouter();
-  const { testid, questionid } = router.query;
-  const getQuestion = useStore((state) => getQuestions(state, testid));
+  const setSelectedAns = useStore((state) => state.setSelectedAnswer);
+
+  const {
+    query: { testid, questionid },
+  } = useRouter();
+
+  const questions = useStore((state) => getQuestions(state, testid));
 
   const handleNext = () => {
-    if (Number(questionid) < getQuestion.length - 1)
-      pushHandler(AppRoutes.question(testid as string, questionid as string));
+    setSelectedAns(undefined);
+    pushHandler(
+      AppRoutes.question(testid as string, (Number(questionid) + 1) as number)
+    );
   };
-
-  console.log({ queData });
 
   return (
     <>
@@ -53,12 +45,7 @@ export default function Home() {
             <Header />
             <Box>
               <SideBar mockQuestionData={mockQuestionData} />
-              <Assessment
-                // queData={queData}
-                activeStep={activeStep}
-                selectedQue={selectedQue}
-                handleNext={handleNext}
-              />
+              <Assessment handleNext={handleNext} />
             </Box>
           </Box>
         </Box>

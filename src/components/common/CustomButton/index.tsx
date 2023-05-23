@@ -3,7 +3,11 @@ import { Button } from "@mui/material";
 import React from "react";
 import { ButtonStyle } from "./styles";
 
-const CustomButton = ({ label, onclick, activeStep }: CustomButtonProps) => {
+const CustomButton = ({
+  label,
+  onclick,
+  disabled = false,
+}: CustomButtonProps) => {
   return (
     <>
       <Button
@@ -11,7 +15,7 @@ const CustomButton = ({ label, onclick, activeStep }: CustomButtonProps) => {
         variant="contained"
         onClick={onclick}
         sx={ButtonStyle}
-        disabled={activeStep === 100}
+        disabled={disabled}
       >
         {label}
       </Button>
