@@ -122,7 +122,7 @@ const Assessment: React.FC<AssessmentProps> = ({
                   {queData?.option && (
                     <>
                       {Object.entries(queData.option).map((data, index) => {
-                        console.log({ data });
+                      
                         return (
                           <>
                             <FormControlLabel

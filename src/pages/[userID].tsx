@@ -1,5 +1,5 @@
 import Authentication from "@/src/sections/Authentication";
-import {getAuth, GoogleAuthProvider, signInWithPopup, signInWithRedirect} from "@firebase/auth";
+import {getAuth, GoogleAuthProvider, signInWithPopup} from "@firebase/auth";
 import {useState} from "react";
 import {useRouter} from "next/router";
 import {fireBaseApp} from "../../firebase.config";
@@ -24,7 +24,7 @@ const GoogleAuth = () =>{
                 setIsLoading(false)
                 
             } else {
-                console.log({response})
+               
                 if (response.user?.email === 'monika.tiwari@propelius.tech') {
                     setIsLoading(false);
                     router.push('/');
