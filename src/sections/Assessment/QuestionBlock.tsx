@@ -26,6 +26,8 @@ import useStore from "@/src/zustand-store";
 import CustomButton from "@/src/components/common/CustomButton";
 import { useRouter } from "next/router";
 import { getQuestions } from "@/src/zustand-store/test/test.selector";
+import InputArea from "@/src/components/common/InputArea";
+import { useState } from "react";
 
 interface stepComponentProps {
   handleNext: () => void;
@@ -52,6 +54,15 @@ const GetStepContent = ({ handleNext }: stepComponentProps) => {
   const BtnLabel =
     questionId === getQuestion?.length ? "Submit" : "Next question";
 
+  //Text Area code =====
+
+  const [editorValue, setEditorValue] = useState("");
+
+  const handleEditorChange = () => {
+    // setEditorValue(value);
+    console.log("written");
+  };
+
   return (
     <Grid container spacing={2} sx={InnerContainerstyles}>
       <Grid item xs={12} sx={leftAnswerContainerStyle}>
@@ -75,7 +86,7 @@ const GetStepContent = ({ handleNext }: stepComponentProps) => {
         </Typography>
       </Grid>
       <Grid item xs={12} sx={OptionGridContainerStyle}>
-        <FormControl sx={OptionFormControlStyle}>
+        {/* <FormControl sx={OptionFormControlStyle}>
           <RadioGroup
             aria-labelledby="demo-radio-buttons-group-label"
             defaultValue="female"
@@ -105,7 +116,10 @@ const GetStepContent = ({ handleNext }: stepComponentProps) => {
               </>
             )}
           </RadioGroup>
-        </FormControl>
+        </FormControl> */}
+        <Box sx={{ height: "250px" }}>
+          <InputArea />
+        </Box>
       </Grid>
       <Grid item xs={12} sx={customButtonContainer}>
         <CustomButton
