@@ -86,40 +86,43 @@ const GetStepContent = ({ handleNext }: stepComponentProps) => {
         </Typography>
       </Grid>
       <Grid item xs={12} sx={OptionGridContainerStyle}>
-        {/* <FormControl sx={OptionFormControlStyle}>
-          <RadioGroup
-            aria-labelledby="demo-radio-buttons-group-label"
-            defaultValue="female"
-            name="radio-buttons-group"
-            onChange={(e) => handleChangeAnswer(e.target.value)}
-          >
-            {question?.option && (
-              <>
-                {Object.values(question?.option).map((data, index) => {
-                  return (
-                    <>
-                      <FormControlLabel
-                        value={data}
-                        key={index}
-                        control={
-                          <Radio
-                            sx={{ color: "#71748b59" }}
-                            checkedIcon={<CheckCircleIcon />}
-                          />
-                        }
-                        label={data as React.ReactNode}
-                        sx={FormControlLabelStyle}
-                      />
-                    </>
-                  );
-                })}
-              </>
-            )}
-          </RadioGroup>
-        </FormControl> */}
-        <Box sx={{ height: "250px" }}>
-          <InputArea />
-        </Box>
+        {question?.type === "mcq" ? (
+          <FormControl sx={OptionFormControlStyle}>
+            <RadioGroup
+              aria-labelledby="demo-radio-buttons-group-label"
+              defaultValue="female"
+              name="radio-buttons-group"
+              onChange={(e) => handleChangeAnswer(e.target.value)}
+            >
+              {question?.option && (
+                <>
+                  {Object.values(question?.option).map((data, index) => {
+                    return (
+                      <>
+                        <FormControlLabel
+                          value={data}
+                          key={index}
+                          control={
+                            <Radio
+                              sx={{ color: "#71748b59" }}
+                              checkedIcon={<CheckCircleIcon />}
+                            />
+                          }
+                          label={data as React.ReactNode}
+                          sx={FormControlLabelStyle}
+                        />
+                      </>
+                    );
+                  })}
+                </>
+              )}
+            </RadioGroup>
+          </FormControl>
+        ) : (
+          <Box sx={{ height: "250px" }}>
+            <InputArea />
+          </Box>
+        )}
       </Grid>
       <Grid item xs={12} sx={customButtonContainer}>
         <CustomButton
