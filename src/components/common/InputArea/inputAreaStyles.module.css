@@ -2,3 +2,7 @@
     height: 200px;
     border: 1px solid #181b32 !important; 
   }
+
+  .quill .ql-toolbar .ql-snow {
+    border: 1px solid red;
+  }
