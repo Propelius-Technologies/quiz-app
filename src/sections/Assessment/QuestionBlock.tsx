@@ -23,11 +23,13 @@ import {
 } from "./styles";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import useStore from "@/src/zustand-store";
-import CustomButton from "@/src/components/common/CustomButton";
 import { useRouter } from "next/router";
 import { getQuestions } from "@/src/zustand-store/test/test.selector";
 import InputArea from "@/src/components/common/InputArea";
 import { useState } from "react";
+
+import OutlineButton from "@/src/components/common/CustomButton/OutlineButton";
+import { ButtonStyle } from "@/src/components/common/CustomButton/styles";
 
 interface stepComponentProps {
   handleNext: () => void;
@@ -55,13 +57,6 @@ const GetStepContent = ({ handleNext }: stepComponentProps) => {
     questionId === getQuestion?.length ? "Submit" : "Next question";
 
   //Text Area code =====
-
-  const [editorValue, setEditorValue] = useState("");
-
-  const handleEditorChange = () => {
-    // setEditorValue(value);
-    console.log("written");
-  };
 
   return (
     <Grid container spacing={2} sx={InnerContainerstyles}>
@@ -125,10 +120,11 @@ const GetStepContent = ({ handleNext }: stepComponentProps) => {
         )}
       </Grid>
       <Grid item xs={12} sx={customButtonContainer}>
-        <CustomButton
+        <OutlineButton
+          variant="contained"
+          title={BtnLabel}
+          onClick={handleNext}
           disabled={getSelectedAns === undefined}
-          onclick={handleNext}
-          label={BtnLabel}
         />
       </Grid>
     </Grid>
