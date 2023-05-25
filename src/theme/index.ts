@@ -127,12 +127,12 @@ const theme: ThemeOptions = {
     info: {
       main: Light_Blue,
     },
-    divider: '#FFF',
+    divider: "#FFF",
   },
   typography: {
     fontFamily: "Roboto",
     allVariants: {
-      fontFamily: "public-sans",
+      fontFamily: "sans-serif",
     },
     h1: {
       fontWeight: "bold",

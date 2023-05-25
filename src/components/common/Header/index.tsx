@@ -5,6 +5,7 @@ import React from "react";
 import logo from "@/src/assets/svgs/propelius_logo.svg";
 import {
   AppBarstyles,
+  TextRoundStyles,
   TextStyles,
   ToolbarInnerBoxStyles,
   ToolBarStyles,
@@ -23,8 +24,17 @@ const Header = () => {
           />
         </Box>
 
+        <Box sx={{ textAlign: "center" }}>
+          <Typography variant="h6" component="div" sx={TextRoundStyles}>
+            Round - 1
+          </Typography>
+          <Typography variant="h6" component="div" sx={TextStyles}>
+            Total Time : 2.40 hours
+          </Typography>
+        </Box>
+
         <Typography variant="h6" component="div" sx={TextStyles}>
-          Total Time : 2.40 hours
+          Remaining Time : 2.40 hours
         </Typography>
       </Toolbar>
     </AppBar>

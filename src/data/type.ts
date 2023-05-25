@@ -8,3 +8,8 @@ export interface mockDataType {
   };
   type: string;
 }
+
+export interface TestDataType {
+  id: number;
+  questions: mockDataType[];
+}

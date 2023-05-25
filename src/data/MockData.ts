@@ -211,6 +211,22 @@ export const mockQuestionData = [
     },
     type: "mcq",
   },
+  {
+    question:
+      "What is the declarative way to render a dynamic list of components based on values in an array?",
+    option: {
+      1: "Using the reduce array method",
+      2: "Using the <Each /> component",
+      3: "Using the Array.map() method",
+      4: "With a for/while loop",
+    },
+    type: "descriptive",
+  },
+];
+
+export const testData = [
+  { id: 1, questions: mockQuestionData },
+  { id: 2, questions: mockQuestionData },
 ];
 
 // Que-Ans Flow

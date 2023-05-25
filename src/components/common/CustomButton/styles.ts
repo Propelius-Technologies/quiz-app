@@ -1,5 +1,3 @@
-import { Primary_Green } from "@/src/theme/colors";
-
 export const ButtonStyle = {
   width: "fit-content",
   borderRadius: { sm: "2px", xs: "3px" },
