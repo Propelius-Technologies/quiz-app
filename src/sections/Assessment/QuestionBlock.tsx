@@ -81,13 +81,6 @@ const GetStepContent = ({ handleNext, handleSubmit }: stepComponentProps) => {
 
   //Text Area code =====
 
-  const [editorValue, setEditorValue] = useState("");
-
-  const handleEditorChange = () => {
-    // setEditorValue(value);
-    console.log("written");
-  };
-
   return (
     <Grid container spacing={2} sx={InnerContainerstyles}>
       <Grid item xs={12} sx={leftAnswerContainerStyle}>
