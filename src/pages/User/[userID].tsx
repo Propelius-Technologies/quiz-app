@@ -66,6 +66,7 @@ const GoogleAuth = () => {
       }
     }
   };
+  console.log("fetchApplicant", userData);
 
   return (
     <>

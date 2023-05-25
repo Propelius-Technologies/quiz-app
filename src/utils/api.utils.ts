@@ -16,6 +16,7 @@ export const fetch = async (config: AxiosRequestConfig) => {
     error: null,
   };
 
+
   try {
     const response = await AxiosInstance(config);
     result.data = response.data;
@@ -46,6 +47,7 @@ export const fetchAction = async (config: AxiosRequestConfig) => {
 
   // TODO remove this
   const result: any = { data, error };
+
 
   if (error) {
   }
