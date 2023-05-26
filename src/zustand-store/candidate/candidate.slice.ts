@@ -33,31 +33,21 @@ export interface Data {
   createdAt: string;
   updatedAt: string;
 }
-
-// console.log("url", window.location.pathname);
-// let data = {
-//   candidateId: "8d41cfa5-b894-4067-9339-00054751d826",
-// };
-
-// export const fetchDataType = {
-//   // data: any;
-// };
-
 const createCandidateSlice: AppStateCreator<CandidateSlice> = (set, get) => ({
   userData: [],
   fetchApplicant: async (data: any) => {
     const res = await fetchAction({
-      url: "/candidates/login",
+      url: "/auth/candidates/login",
       method: "POST",
       data,
     });
-    // console.log({ res });
+
     return await res.data;
   },
   setUserData: (value) => set((state) => ({ ...state, userData: value })),
   getAccesstoken: async (data: any) => {
     const res = await fetchAction({
-      url: "/candidates/login",
+      url: "/auth/candidates/login",
       method: "POST",
       data,
     });

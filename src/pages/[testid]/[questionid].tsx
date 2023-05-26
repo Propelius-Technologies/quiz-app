@@ -5,26 +5,32 @@ import { mockQuestionData } from "@/src/data/MockData";
 import Assessment from "@/src/sections/Assessment";
 import { pushHandler } from "@/src/utils/genericRouting";
 import useStore from "@/src/zustand-store";
-import { getQuestions } from "@/src/zustand-store/test/test.selector";
+// import { getQuestions } from "@/src/zustand-store/test/test.selector";
 import { Box } from "@mui/material";
 import Head from "next/head";
 import { useRouter } from "next/router";
+import { useEffect } from "react";
 
 export default function Home() {
-  const setSelectedAns = useStore((state) => state.setSelectedAnswer);
+  // const setSelectedAns = useStore((state: any) => state.setSelectedAnswer);
 
-  const {
-    query: { testid, questionid },
-  } = useRouter();
+  // const questions = useStore((state) => getQuestions(state, testid));
 
-  const questions = useStore((state) => getQuestions(state, testid));
+  const fetchTests = useStore((state: any) => state.fetchTests);
 
-  const handleNext = () => {
-    setSelectedAns(undefined);
-    pushHandler(
-      AppRoutes.question(testid as string, (Number(questionid) + 1) as number)
-    );
+  // const {
+  //   query: { testid, questionid },
+  // } = useRouter();
+
+  const router = useRouter();
+
+  const getQuestionData = async () => {
+    await fetchTests(router?.query?.testid);
   };
+
+  useEffect(() => {
+    getQuestionData();
+  }, [router]);
 
   return (
     <>
@@ -44,8 +50,8 @@ export default function Home() {
           >
             <Header />
             <Box>
-              <SideBar mockQuestionData={mockQuestionData} />
-              <Assessment handleNext={handleNext} />
+              <SideBar />
+              <Assessment />
             </Box>
           </Box>
         </Box>

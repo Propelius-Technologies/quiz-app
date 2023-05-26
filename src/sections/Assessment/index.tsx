@@ -39,27 +39,32 @@ import {
 } from "./styles";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import CircularStatic from "@/src/components/common/CustomCircularProgess";
-import { mockDataType } from "@/src/data/type";
-import CustomButton from "@/src/components/common/CustomButton";
+
+// import CustomButton from "@/src/components/common/CustomButton";
 import useStore from "@/src/zustand-store";
 import { useRouter } from "next/router";
 import { getQuestions } from "@/src/zustand-store/test/test.selector";
 import GetStepContent from "./QuestionBlock";
+import { pushHandler } from "@/src/utils/genericRouting";
+import { AppRoutes } from "@/src/constant/appRoutes";
 
-interface AssessmentProps {
-  handleNext: () => void;
-}
+interface AssessmentProps {}
 
-const Assessment: React.FC<AssessmentProps> = ({ handleNext }) => {
+const Assessment: React.FC<AssessmentProps> = () => {
+  const testData = useStore((state) => state.tests);
+
+  const getSelectedAns = useStore((state) => state.selectedAnswer);
+  const setSelectedAns = useStore((state) => state.setSelectedAnswer);
+
   const {
     query: { testid, questionid },
   } = useRouter();
-  const fetchTests = useStore((state) => state.fetchTests);
-  const getQuestion = useStore((state) => getQuestions(state, testid));
-
-  useEffect(() => {
-    fetchTests();
-  }, [fetchTests]);
+  const handleNext = () => {
+    setSelectedAns(undefined);
+    pushHandler(
+      AppRoutes.question(testid as string, (Number(questionid) + 1) as number)
+    );
+  };
 
   return (
     <>
@@ -77,16 +82,18 @@ const Assessment: React.FC<AssessmentProps> = ({ handleNext }) => {
                   Bidyut Samanta
                 </Typography>
               </Box>
-              {getQuestion?.length && (
+              {testData?.testQuestionsAndAnswers?.length > 0 && (
                 <Box>
                   <Typography variant="h6" sx={userTotalCompletedTextStyles}>
                     {`Total test: ${Math.round(
-                      (Number(questionid) / getQuestion?.length) * 100
+                      (Number(questionid) /
+                        testData?.testQuestionsAndAnswers?.length) *
+                        100
                     )}% completed`}
                   </Typography>
                   <MobileStepper
                     variant="progress"
-                    steps={getQuestion?.length + 1}
+                    steps={testData?.testQuestionsAndAnswers?.length + 1}
                     position="static"
                     sx={MobileStepperStyles}
                     nextButton={null}

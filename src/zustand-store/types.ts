@@ -14,8 +14,8 @@ export interface LoaderSliceProps {
 
 export interface TestSliceProps {
   // TODO REMOVE THIS
-  tests: TestDataType[];
+  tests: TestDataType;
   selectedAnswer: string | undefined;
-  fetchTests: () => void;
+  fetchTests: (testId: number) => void;
   setSelectedAnswer: (value: string | undefined) => void;
 }
