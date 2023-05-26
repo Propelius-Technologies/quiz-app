@@ -1,15 +1,41 @@
-export interface mockDataType {
-  question: string;
-  option: {
-    1: string;
-    2: string;
-    3: string;
-    4: string;
-  };
-  type: string;
-}
-
 export interface TestDataType {
   id: number;
-  questions: mockDataType[];
+  isFeedbackRequired: boolean;
+  feedback: any;
+  score: any;
+  status: string;
+  candidateId: number;
+  roundId: number;
+  createdAt: string;
+  updatedAt: string;
+  testQuestionsAndAnswers: TestQuestionsAndAnswer[];
+}
+
+export interface TestQuestionsAndAnswer {
+  id: number;
+  answer: any;
+  timeTaken: any;
+  questionId: number;
+  testId: number;
+  createdAt: string;
+  updatedAt: string;
+  question: Question;
+}
+
+export interface Question {
+  id: number;
+  question: string;
+  options: Options;
+  type: string;
+  level: string;
+  timeLimit: number;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface Options {
+  "1": string;
+  "2": string;
+  "3": string;
+  "4": string;
 }

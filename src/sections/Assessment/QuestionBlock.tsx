@@ -47,23 +47,30 @@ const GetStepContent = ({ handleNext }: stepComponentProps) => {
     query: { testid, questionid },
   } = useRouter();
 
-  const getQuestion = useStore((state) => getQuestions(state, testid));
+  const getQuestionData = useStore((state) => state.tests);
 
-  const question = getQuestion && getQuestion[Number(Number(questionid) - 1)];
+  const question =
+    getQuestionData?.testQuestionsAndAnswers &&
+    getQuestionData?.testQuestionsAndAnswers[Number(questionid) - 1];
 
   const questionId = Number(questionid);
 
   const BtnLabel =
-    questionId === getQuestion?.length ? "Submit" : "Next question";
+    questionId === getQuestionData?.testQuestionsAndAnswers?.length
+      ? "Submit"
+      : "Next question";
 
   //Text Area code =====
+
+  const testData = useStore((state) => state.tests);
 
   return (
     <Grid container spacing={2} sx={InnerContainerstyles}>
       <Grid item xs={12} sx={leftAnswerContainerStyle}>
-        {getQuestion?.length && (
+        {getQuestionData?.testQuestionsAndAnswers?.length > 0 && (
           <Typography variant="h6" sx={LeftAnswerTextStyles}>
-            {getQuestion?.length - questionId} ANSWERS LEFT
+            {getQuestionData?.testQuestionsAndAnswers?.length - questionId}{" "}
+            ANSWERS LEFT
           </Typography>
         )}
         <Box sx={TimeRemainingContainerStyles}>
@@ -77,11 +84,11 @@ const GetStepContent = ({ handleNext }: stepComponentProps) => {
       <Grid item xs={12} sx={QuestionContainerStyles}>
         <Typography variant="h6" sx={QuestionTextStyles}>
           <span>{`${questionId})`}</span>
-          {question?.question}
+          {question?.question?.question}
         </Typography>
       </Grid>
       <Grid item xs={12} sx={OptionGridContainerStyle}>
-        {question?.type === "mcq" ? (
+        {question?.question?.type === "mcq" ? (
           <FormControl sx={OptionFormControlStyle}>
             <RadioGroup
               aria-labelledby="demo-radio-buttons-group-label"
@@ -89,26 +96,28 @@ const GetStepContent = ({ handleNext }: stepComponentProps) => {
               name="radio-buttons-group"
               onChange={(e) => handleChangeAnswer(e.target.value)}
             >
-              {question?.option && (
+              {question?.question?.options && (
                 <>
-                  {Object.values(question?.option).map((data, index) => {
-                    return (
-                      <>
-                        <FormControlLabel
-                          value={data}
-                          key={index}
-                          control={
-                            <Radio
-                              sx={{ color: "#71748b59" }}
-                              checkedIcon={<CheckCircleIcon />}
-                            />
-                          }
-                          label={data as React.ReactNode}
-                          sx={FormControlLabelStyle}
-                        />
-                      </>
-                    );
-                  })}
+                  {Object.values(question?.question?.options).map(
+                    (data, index) => {
+                      return (
+                        <>
+                          <FormControlLabel
+                            value={data}
+                            key={index}
+                            control={
+                              <Radio
+                                sx={{ color: "#71748b59" }}
+                                checkedIcon={<CheckCircleIcon />}
+                              />
+                            }
+                            label={data as React.ReactNode}
+                            sx={FormControlLabelStyle}
+                          />
+                        </>
+                      );
+                    }
+                  )}
                 </>
               )}
             </RadioGroup>

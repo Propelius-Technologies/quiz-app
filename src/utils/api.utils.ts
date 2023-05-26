@@ -2,9 +2,8 @@ import axios, { AxiosRequestConfig } from "axios";
 import merge from "lodash/merge";
 import { getAccessToken } from "./token.utils";
 
-const API_PREFIX = `/v1/auth`;
+const API_PREFIX = `/v1`;
 export const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL;
-console.log({});
 
 export const AxiosInstance = axios.create({
   baseURL: API_BASE_URL + API_PREFIX,
@@ -40,12 +39,10 @@ export const fetchAction = async (config: AxiosRequestConfig) => {
   const specificConfig = {
     headers: { Authorization: `Bearer ${token}` || "" },
   };
-  const axconfig = merge({}, config);
+  const axconfig = merge({}, { ...config, ...specificConfig });
+
   const res = await fetch(axconfig);
   const { data, error } = res;
-
-//   console.log({data})
-//   console.log({error})
 
   // TODO remove this
   const result: any = { data, error };

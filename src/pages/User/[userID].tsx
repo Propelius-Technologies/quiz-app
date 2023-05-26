@@ -1,6 +1,6 @@
 import Authentication from "@/src/sections/Authentication";
 import { getAuth, GoogleAuthProvider, signInWithPopup } from "@firebase/auth";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { fireBaseApp } from "../../../firebase.config";
 import { GetServerSideProps } from "next";
@@ -20,23 +20,21 @@ const GoogleAuth = () => {
   const getAccesstoken = useStore((state) => state.getAccesstoken);
 
   const userData = useStore((state) => state.userData);
-
-  let Bodydata = {
-    candidateId: "8d41cfa5-b894-4067-9339-00054751d826",
-  };
-
   const getUserData = async () => {
-    let data: any = await fetchApplicant(Bodydata);
+    let Bodydata = {
+      candidateId: router.query.userID,
+    };
+    console.log(Bodydata);
+    const data: any = await fetchApplicant(Bodydata);
     setUserData(data);
   };
 
-  // const getUserTokenData = async () => {
-  //   let tokenData: any = await getAccesstoken(data);
-  // };
-
   useEffect(() => {
-    getUserData();
-  }, []);
+    if (router.isReady) {
+      getUserData();
+    }
+    console.log(router.isReady);
+  }, [router.isReady]);
 
   const handleGoogleAuth = async () => {
     setIsLoading(true);
@@ -48,28 +46,26 @@ const GoogleAuth = () => {
     if (response.code && response.code === "auth/popup-closed-by-user") {
       setIsLoading(false);
     } else {
-      if (response.user?.email === userData?.email) {
-        setIsLoading(false);
-        console.log("true email");
+      if (router.isReady) {
+        if (response.user?.email === userData?.email) {
+          setIsLoading(false);
 
-        let data = {
-          candidateId: "8d41cfa5-b894-4067-9339-00054751d826",
-          guid: response.user.uid,
-          token: await response.user.getIdToken(),
-        };
+          let data = {
+            candidateId: router?.query?.userID,
+            guid: response.user.uid,
+            token: await response.user.getIdToken(),
+          };
 
-        let tokenData: any = await getAccesstoken(data);
+          let tokenData: any = await getAccesstoken(data);
 
-        console.log("tokenData", tokenData);
+          localStorage.setItem("access_token", tokenData.accessToken);
 
-        // router.push("/user");
-      } else {
-        console.log("Invalid email id");
-        console.log("response", await response.user.getIdToken());
+          router.push("/user");
+        } else {
+        }
       }
     }
   };
-  console.log("fetchApplicant", userData);
 
   return (
     <>
