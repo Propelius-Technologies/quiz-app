@@ -79,8 +79,6 @@ const GetStepContent = ({ handleNext, handleSubmit }: stepComponentProps) => {
 
   const testData = useStore((state) => state.tests);
 
-  //Text Area code =====
-
   return (
     <Grid container spacing={2} sx={InnerContainerstyles}>
       <Grid item xs={12} sx={leftAnswerContainerStyle}>
