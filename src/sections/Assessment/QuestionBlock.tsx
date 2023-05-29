@@ -26,28 +26,29 @@ import useStore from "@/src/zustand-store";
 import { useRouter } from "next/router";
 import { getQuestions } from "@/src/zustand-store/test/test.selector";
 import InputArea from "@/src/components/common/InputArea";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import OutlineButton from "@/src/components/common/CustomButton/OutlineButton";
 import { ButtonStyle } from "@/src/components/common/CustomButton/styles";
+import { dataTypes } from "@/src/zustand-store/types";
 
 interface stepComponentProps {
-  handleNext: () => void;
+  handleNext: (id: string) => void;
 }
 
+let passData;
 const GetStepContent = ({ handleNext }: stepComponentProps) => {
+  // const [id, setId] = useState();
   const getSelectedAns = useStore((state) => state.selectedAnswer);
   const setSelectedAns = useStore((state) => state.setSelectedAnswer);
-
-  const handleChangeAnswer = (value: string) => {
-    setSelectedAns(value);
-  };
 
   const {
     query: { testid, questionid },
   } = useRouter();
 
   const getQuestionData = useStore((state) => state.tests);
+
+  console.log({ getQuestionData });
 
   const question =
     getQuestionData?.testQuestionsAndAnswers &&
@@ -59,6 +60,19 @@ const GetStepContent = ({ handleNext }: stepComponentProps) => {
     questionId === getQuestionData?.testQuestionsAndAnswers?.length
       ? "Submit"
       : "Next question";
+
+  const handleSubmit = () => {
+    console.log("submit data");
+  };
+
+  const handleChangeAnswer = (value: string) => {
+    for (const [key, val] of Object.entries(question?.question?.options)) {
+      if (val === value) {
+        setSelectedAns(key);
+      }
+    }
+    return null;
+  };
 
   //Text Area code =====
 
@@ -94,12 +108,14 @@ const GetStepContent = ({ handleNext }: stepComponentProps) => {
               aria-labelledby="demo-radio-buttons-group-label"
               defaultValue="female"
               name="radio-buttons-group"
+              value={getSelectedAns}
               onChange={(e) => handleChangeAnswer(e.target.value)}
             >
               {question?.question?.options && (
                 <>
                   {Object.values(question?.question?.options).map(
-                    (data, index) => {
+                    (data: any, index) => {
+                      console.log("object data", question?.question.options);
                       return (
                         <>
                           <FormControlLabel
@@ -132,7 +148,12 @@ const GetStepContent = ({ handleNext }: stepComponentProps) => {
         <OutlineButton
           variant="contained"
           title={BtnLabel}
-          onClick={handleNext}
+          // onClick={BtnLabel === "Submit" ? handleSubmit : handleNext(id)}
+          onClick={() =>
+            BtnLabel === "Submit"
+              ? handleSubmit
+              : handleNext((question?.id).toString())
+          }
           disabled={getSelectedAns === undefined}
         />
       </Grid>

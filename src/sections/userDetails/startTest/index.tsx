@@ -29,14 +29,17 @@ const StartTest = ({}: StartTestProps) => {
   const dashboardData = useStore((state) => state.dashboardData);
 
   useEffect(() => {
+    console.log("start yest", dashboardData);
     dashboardData?.tests?.map((data: any) => {
       if (data.status === "active") {
+        console.log(data.id);
         testID = data.id;
       }
     });
-  }, []);
+  }, [dashboardData]);
 
   const handleTest = () => {
+    console.log({ testID });
     router.push(`/${testID}/1`);
   };
 

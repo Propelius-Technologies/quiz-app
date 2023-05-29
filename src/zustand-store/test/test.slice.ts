@@ -27,6 +27,14 @@ const createTestSlice: AppStateCreator<TestSliceProps> = (set) => ({
       set((state) => ({ ...state, tests: res.data }));
     }
   },
+  submitAns: async (testId, data) => {
+    const submitData = await fetchAction({
+      url: `/tests/${testId}/answer`,
+      method: "PATCH",
+      data,
+    });
+    set((state) => ({ ...state, selectedAnswer: undefined }));
+  },
   setSelectedAnswer: (value) =>
     set((state) => ({ ...state, selectedAnswer: value })),
 });
