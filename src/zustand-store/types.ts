@@ -12,10 +12,19 @@ export interface LoaderSliceProps {
   disableLoader: () => void;
 }
 
+export interface dataTypes {
+  testId: number;
+  questionId: number;
+  timeTaken: number;
+  answer: string[];
+  isLastQuestion: boolean;
+}
+
 export interface TestSliceProps {
   // TODO REMOVE THIS
   tests: TestDataType;
   selectedAnswer: string | undefined;
   fetchTests: (testId: number) => void;
+  submitAns: (testId: number, data: dataTypes) => void;
   setSelectedAnswer: (value: string | undefined) => void;
 }

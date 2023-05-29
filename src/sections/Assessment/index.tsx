@@ -47,20 +47,38 @@ import { getQuestions } from "@/src/zustand-store/test/test.selector";
 import GetStepContent from "./QuestionBlock";
 import { pushHandler } from "@/src/utils/genericRouting";
 import { AppRoutes } from "@/src/constant/appRoutes";
+import { dataTypes } from "@/src/zustand-store/types";
 
 interface AssessmentProps {}
 
 const Assessment: React.FC<AssessmentProps> = () => {
+  const router = useRouter();
   const testData = useStore((state) => state.tests);
 
   const getSelectedAns = useStore((state) => state.selectedAnswer);
   const setSelectedAns = useStore((state) => state.setSelectedAnswer);
 
+  const submitAns = useStore((state: any) => state.submitAns);
+
   const {
     query: { testid, questionid },
   } = useRouter();
-  const handleNext = () => {
+
+  const handleNext = (id: string) => {
+    console.log("id", id);
+    let data = {
+      questionId: Number(questionid),
+      timeTaken: 30,
+      answer: [id],
+      isLastQuestion: false,
+    };
+    console.log("getSelectedAns", data, testid);
+
+    if (getSelectedAns && data) {
+      submitAns(testid, data);
+    }
     setSelectedAns(undefined);
+
     pushHandler(
       AppRoutes.question(testid as string, (Number(questionid) + 1) as number)
     );

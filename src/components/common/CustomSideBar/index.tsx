@@ -29,6 +29,8 @@ interface sideBarProps {}
 const SideBar: React.FC<sideBarProps> = () => {
   const isSM = useMediaQuery("(max-width:834px)");
   const getQuestionData = useStore((state) => state.tests);
+
+  console.log("getQData===>", getQuestionData);
   const {
     query: { testid, questionid },
   } = useRouter();
@@ -48,6 +50,7 @@ const SideBar: React.FC<sideBarProps> = () => {
                 <ListItem
                   key={index + 1}
                   disablePadding
+                  // disabled
                   sx={
                     index + 1 === Number(questionid)
                       ? selectedQueStyles
@@ -55,6 +58,7 @@ const SideBar: React.FC<sideBarProps> = () => {
                   }
                 >
                   <ListItemButton
+                    disabled={data.answer === null ? false : true}
                     onClick={() =>
                       pushHandler(
                         AppRoutes.question(
