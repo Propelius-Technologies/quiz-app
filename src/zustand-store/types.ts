@@ -24,7 +24,9 @@ export interface TestSliceProps {
   // TODO REMOVE THIS
   tests: TestDataType;
   selectedAnswer: string | undefined;
+  timeTaken: number;
   fetchTests: (testId: number) => void;
   submitAns: (testId: number, data: dataTypes) => void;
   setSelectedAnswer: (value: string | undefined) => void;
+  setTimeTaken: (value: number) => void;
 }

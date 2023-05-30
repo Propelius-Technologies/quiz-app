@@ -33,11 +33,12 @@ import { ButtonStyle } from "@/src/components/common/CustomButton/styles";
 import { dataTypes } from "@/src/zustand-store/types";
 
 interface stepComponentProps {
-  handleNext: (id: string) => void;
+  handleNext: (id: number) => void;
+  handleSubmit: (id: number) => void;
 }
 
 let passData;
-const GetStepContent = ({ handleNext }: stepComponentProps) => {
+const GetStepContent = ({ handleNext, handleSubmit }: stepComponentProps) => {
   // const [id, setId] = useState();
   const getSelectedAns = useStore((state) => state.selectedAnswer);
   const setSelectedAns = useStore((state) => state.setSelectedAnswer);
@@ -47,8 +48,6 @@ const GetStepContent = ({ handleNext }: stepComponentProps) => {
   } = useRouter();
 
   const getQuestionData = useStore((state) => state.tests);
-
-  console.log({ getQuestionData });
 
   const question =
     getQuestionData?.testQuestionsAndAnswers &&
@@ -61,10 +60,6 @@ const GetStepContent = ({ handleNext }: stepComponentProps) => {
       ? "Submit"
       : "Next question";
 
-  const handleSubmit = () => {
-    console.log("submit data");
-  };
-
   const handleChangeAnswer = (value: string) => {
     for (const [key, val] of Object.entries(question?.question?.options)) {
       if (val === value) {
@@ -72,6 +67,10 @@ const GetStepContent = ({ handleNext }: stepComponentProps) => {
       }
     }
     return null;
+  };
+
+  const handleDescriptiveAns = (value: string) => {
+    setSelectedAns(value);
   };
 
   //Text Area code =====
@@ -91,7 +90,14 @@ const GetStepContent = ({ handleNext }: stepComponentProps) => {
           <Typography variant="h6" sx={TimeRemainingTextStyles}>
             Time Remaining
           </Typography>
-          <CircularStatic />
+          <CircularStatic
+            onClick={() =>
+              BtnLabel === "Submit"
+                ? handleSubmit(question?.id)
+                : handleNext(question?.id)
+            }
+            timeLimit={question?.question?.timeLimit}
+          />
         </Box>
       </Grid>
 
@@ -115,7 +121,6 @@ const GetStepContent = ({ handleNext }: stepComponentProps) => {
                 <>
                   {Object.values(question?.question?.options).map(
                     (data: any, index) => {
-                      console.log("object data", question?.question.options);
                       return (
                         <>
                           <FormControlLabel
@@ -140,7 +145,7 @@ const GetStepContent = ({ handleNext }: stepComponentProps) => {
           </FormControl>
         ) : (
           <Box sx={{ height: "250px" }}>
-            <InputArea />
+            <InputArea onChangeHandler={handleDescriptiveAns} />
           </Box>
         )}
       </Grid>
@@ -151,8 +156,8 @@ const GetStepContent = ({ handleNext }: stepComponentProps) => {
           // onClick={BtnLabel === "Submit" ? handleSubmit : handleNext(id)}
           onClick={() =>
             BtnLabel === "Submit"
-              ? handleSubmit
-              : handleNext((question?.id).toString())
+              ? handleSubmit(question?.id)
+              : handleNext(question?.id)
           }
           disabled={getSelectedAns === undefined}
         />

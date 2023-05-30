@@ -7,7 +7,11 @@ const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 import "react-quill/dist/quill.snow.css";
 import "./inputAreaStyles.module.css";
 
-const InputArea = () => {
+export interface inputAreaProps {
+  onChangeHandler: (value: any) => void;
+}
+
+const InputArea = ({ onChangeHandler }: inputAreaProps) => {
   return (
     <>
       {!isServer && (
@@ -15,6 +19,7 @@ const InputArea = () => {
           //   value={value}
           //   onChange={onChange}
           //   className={styles.customEditor}
+          onChange={onChangeHandler}
           style={{ height: "80%" }}
           modules={{
             toolbar: [

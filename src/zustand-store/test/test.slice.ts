@@ -18,6 +18,7 @@ export const testInitialData = {
 const createTestSlice: AppStateCreator<TestSliceProps> = (set) => ({
   tests: testInitialData,
   selectedAnswer: undefined,
+  timeTaken: 0,
   fetchTests: async (testId) => {
     if (testId) {
       const res = await fetchAction({
@@ -37,6 +38,8 @@ const createTestSlice: AppStateCreator<TestSliceProps> = (set) => ({
   },
   setSelectedAnswer: (value) =>
     set((state) => ({ ...state, selectedAnswer: value })),
+
+  setTimeTaken: (value) => set((state) => ({ ...state, timeTaken: value })),
 });
 
 export default createTestSlice;
