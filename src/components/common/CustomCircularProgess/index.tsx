@@ -7,6 +7,7 @@ import Box from "@mui/material/Box";
 import { circularProgressBox, ProgressText } from "./styles";
 import { useRouter } from "next/router";
 import { Danger, Primary_Green } from "@/src/theme/colors";
+import useStore from "@/src/zustand-store";
 
 function CircularProgressWithLabel(
   props: CircularProgressProps & { value: number }
@@ -38,16 +39,35 @@ function CircularProgressWithLabel(
   );
 }
 
-export default function CircularStatic() {
+export interface CircularStaticProps {
+  onClick: () => void;
+  timeLimit: number;
+}
+
+export default function CircularStatic({
+  onClick,
+  timeLimit,
+}: CircularStaticProps) {
   const { query: questionid } = useRouter();
   const [progress, setProgress] = React.useState(100);
+
+  const setSelectedAns = useStore((state) => state.setSelectedAnswer);
+
+  const setTimeTaken = useStore((state) => state.setTimeTaken);
+
   React.useEffect(() => {
     const timer = setInterval(() => {
       setProgress((prevProgress) => {
         if (prevProgress <= 0) {
           clearInterval(timer); // Stop the timer
+
+          // onClick();
           return 0; // Set progress to 0
         } else {
+          setTimeTaken(Math.round((prevProgress * timeLimit) / 100));
+          if (prevProgress === 1) {
+            setSelectedAns("1");
+          }
           return prevProgress - 1; // Decrement progress
         }
       });

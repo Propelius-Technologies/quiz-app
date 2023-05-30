@@ -58,30 +58,45 @@ const Assessment: React.FC<AssessmentProps> = () => {
   const getSelectedAns = useStore((state) => state.selectedAnswer);
   const setSelectedAns = useStore((state) => state.setSelectedAnswer);
 
+  const getTimeTaken = useStore((state) => state.timeTaken);
+
   const submitAns = useStore((state: any) => state.submitAns);
 
   const {
     query: { testid, questionid },
   } = useRouter();
 
-  const handleNext = (id: string) => {
-    console.log("id", id);
+  const handleNext = (id: number) => {
     let data = {
-      questionId: Number(questionid),
-      timeTaken: 30,
-      answer: [id],
+      questionId: id,
+      timeTaken: getTimeTaken,
+      answer: [getSelectedAns?.toString()],
       isLastQuestion: false,
     };
-    console.log("getSelectedAns", data, testid);
 
-    if (getSelectedAns && data) {
-      submitAns(testid, data);
-    }
+    // if (getSelectedAns && data) {
+    submitAns(testid, data);
+    // }
     setSelectedAns(undefined);
 
     pushHandler(
       AppRoutes.question(testid as string, (Number(questionid) + 1) as number)
     );
+  };
+
+  const handleSubmit = (id: number) => {
+    let data = {
+      questionId: id,
+      timeTaken: getTimeTaken,
+      answer: [getSelectedAns?.toString()],
+      isLastQuestion: true,
+    };
+
+    // if (getSelectedAns && data) {
+    submitAns(testid, data);
+    // }
+
+    router.push("/user");
   };
 
   return (
@@ -124,7 +139,7 @@ const Assessment: React.FC<AssessmentProps> = () => {
 
           <Divider sx={DividerStyles} />
 
-          <GetStepContent handleNext={handleNext} />
+          <GetStepContent handleNext={handleNext} handleSubmit={handleSubmit} />
         </Paper>
       </Box>
     </>
