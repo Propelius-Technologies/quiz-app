@@ -30,7 +30,7 @@ const SideBar: React.FC<sideBarProps> = () => {
   const isSM = useMediaQuery("(max-width:834px)");
   const getQuestionData = useStore((state) => state.tests);
 
-  console.log("getQData===>", getQuestionData);
+
   const {
     query: { testid, questionid },
   } = useRouter();

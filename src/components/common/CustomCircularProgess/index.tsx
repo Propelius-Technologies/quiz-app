@@ -64,12 +64,12 @@ export default function CircularStatic({
           onClick();
           return 0; // Set progress to 0
         } else {
-          console.log("timeLimit", timeLimit);
+
           // if (timeLimit) {
           setTimeTaken(Math.round((prevProgress * timeLimit) / 100));
           // }
           if (prevProgress === 1) {
-            console.log("server");
+
 
             setSelectedAns("1");
           }

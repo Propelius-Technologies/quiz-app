@@ -46,7 +46,7 @@ const GoogleAuth = () => {
     } else {
       if (router.isReady) {
         if (response.user?.email === userData?.email) {
-          console.log("email valid");
+
           setIsLoading(false);
 
           let data = {
