@@ -49,7 +49,7 @@ export default function CircularStatic({
   timeLimit,
 }: CircularStaticProps) {
   const { query: questionid } = useRouter();
-  const [progress, setProgress] = React.useState(100);
+  const [progress, setProgress] = React.useState(10);
 
   const setSelectedAns = useStore((state) => state.setSelectedAnswer);
 
@@ -61,22 +61,27 @@ export default function CircularStatic({
         if (prevProgress <= 0) {
           clearInterval(timer); // Stop the timer
 
-          // onClick();
+          onClick();
           return 0; // Set progress to 0
         } else {
+          console.log("timeLimit", timeLimit);
+          // if (timeLimit) {
           setTimeTaken(Math.round((prevProgress * timeLimit) / 100));
+          // }
           if (prevProgress === 1) {
+            console.log("server");
+
             setSelectedAns("1");
           }
           return prevProgress - 1; // Decrement progress
         }
       });
     }, 640);
-    setProgress(100);
+    setProgress(10);
     return () => {
       clearInterval(timer);
     };
-  }, [questionid]);
+  }, [questionid, timeLimit]);
 
   return <CircularProgressWithLabel value={progress} />;
 }

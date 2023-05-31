@@ -70,14 +70,14 @@ const Assessment: React.FC<AssessmentProps> = () => {
     let data = {
       questionId: id,
       timeTaken: getTimeTaken,
-      answer: [getSelectedAns?.toString()],
+      answer: [getSelectedAns],
       isLastQuestion: false,
     };
 
     // if (getSelectedAns && data) {
     submitAns(testid, data);
     // }
-    setSelectedAns(undefined);
+    // setSelectedAns(undefined);
 
     pushHandler(
       AppRoutes.question(testid as string, (Number(questionid) + 1) as number)
@@ -88,7 +88,7 @@ const Assessment: React.FC<AssessmentProps> = () => {
     let data = {
       questionId: id,
       timeTaken: getTimeTaken,
-      answer: [getSelectedAns?.toString()],
+      answer: [getSelectedAns],
       isLastQuestion: true,
     };
 
