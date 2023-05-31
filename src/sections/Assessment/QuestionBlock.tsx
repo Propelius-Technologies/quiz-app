@@ -96,7 +96,9 @@ const GetStepContent = ({ handleNext, handleSubmit }: stepComponentProps) => {
                 ? handleSubmit(question?.id)
                 : handleNext(question?.id)
             }
-            timeLimit={question?.question?.timeLimit}
+            timeLimit={
+              question?.question?.timeLimit && question?.question?.timeLimit
+            }
           />
         </Box>
       </Grid>
