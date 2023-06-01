@@ -39,6 +39,7 @@ interface stepComponentProps {
 
 let passData;
 const GetStepContent = ({ handleNext, handleSubmit }: stepComponentProps) => {
+  const [selectOption, setSelectedOption] = useState<string>();
   // const [id, setId] = useState();
   const getSelectedAns = useStore((state) => state.selectedAnswer);
   const setSelectedAns = useStore((state) => state.setSelectedAnswer);
@@ -61,6 +62,7 @@ const GetStepContent = ({ handleNext, handleSubmit }: stepComponentProps) => {
       : "Next question";
 
   const handleChangeAnswer = (value: string) => {
+    setSelectedOption(value);
     for (const [key, val] of Object.entries(question?.question?.options)) {
       if (val === value) {
         setSelectedAns(key);
@@ -116,7 +118,7 @@ const GetStepContent = ({ handleNext, handleSubmit }: stepComponentProps) => {
               aria-labelledby="demo-radio-buttons-group-label"
               defaultValue="female"
               name="radio-buttons-group"
-              value={getSelectedAns}
+              value={selectOption}
               onChange={(e) => handleChangeAnswer(e.target.value)}
             >
               {question?.question?.options && (
@@ -147,7 +149,10 @@ const GetStepContent = ({ handleNext, handleSubmit }: stepComponentProps) => {
           </FormControl>
         ) : (
           <Box sx={{ height: "250px" }}>
-            <InputArea onChangeHandler={handleDescriptiveAns} />
+            <InputArea
+              onChangeHandler={handleDescriptiveAns}
+              getSelectedAns={getSelectedAns}
+            />
           </Box>
         )}
       </Grid>
@@ -161,7 +166,7 @@ const GetStepContent = ({ handleNext, handleSubmit }: stepComponentProps) => {
               ? handleSubmit(question?.id)
               : handleNext(question?.id)
           }
-          disabled={getSelectedAns === undefined}
+          disabled={getSelectedAns === "" ? true : false}
         />
       </Grid>
     </Grid>
