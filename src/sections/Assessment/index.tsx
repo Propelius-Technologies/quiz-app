@@ -77,7 +77,7 @@ const Assessment: React.FC<AssessmentProps> = () => {
     // if (getSelectedAns && data) {
     submitAns(testid, data);
     // }
-    // setSelectedAns(undefined);
+    setSelectedAns("");
 
     pushHandler(
       AppRoutes.question(testid as string, (Number(questionid) + 1) as number)
@@ -91,6 +91,7 @@ const Assessment: React.FC<AssessmentProps> = () => {
       answer: [getSelectedAns],
       isLastQuestion: true,
     };
+    console.log("dataget --->", data);
 
     // if (getSelectedAns && data) {
     submitAns(testid, data);

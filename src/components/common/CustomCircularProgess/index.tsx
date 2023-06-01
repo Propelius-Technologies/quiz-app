@@ -9,9 +9,12 @@ import { useRouter } from "next/router";
 import { Danger, Primary_Green } from "@/src/theme/colors";
 import useStore from "@/src/zustand-store";
 
-function CircularProgressWithLabel(
-  props: CircularProgressProps & { value: number }
-) {
+function CircularProgressWithLabel(props: {
+  value: number;
+  timeLimit: number;
+}) {
+  console.log("timeLinmit", Math.round((props.value / props.timeLimit) * 100));
+  let time = Math.round((props.value / props.timeLimit) * 100);
   return (
     <Box
       sx={{
@@ -25,7 +28,7 @@ function CircularProgressWithLabel(
             Math.round((props.value * 60) / 100) > 10 ? Primary_Green : Danger,
         }}
         variant="determinate"
-        {...props}
+        value={time}
       />
       <Box sx={circularProgressBox}>
         <Typography
@@ -33,7 +36,7 @@ function CircularProgressWithLabel(
           component="div"
           color="text.secondary"
           sx={ProgressText}
-        >{`${Math.round((props.value * 60) / 100)}`}</Typography>
+        >{`${Math.round(props.value)}`}</Typography>
       </Box>
     </Box>
   );
@@ -49,7 +52,7 @@ export default function CircularStatic({
   timeLimit,
 }: CircularStaticProps) {
   const { query: questionid } = useRouter();
-  const [progress, setProgress] = React.useState(10);
+  const [progress, setProgress] = React.useState(timeLimit);
 
   const setSelectedAns = useStore((state) => state.setSelectedAnswer);
 
@@ -64,24 +67,22 @@ export default function CircularStatic({
           onClick();
           return 0; // Set progress to 0
         } else {
-
           // if (timeLimit) {
-          setTimeTaken(Math.round((prevProgress * timeLimit) / 100));
+          console.log("datatime", prevProgress);
+          setTimeTaken(timeLimit - prevProgress);
           // }
           if (prevProgress === 1) {
-
-
             setSelectedAns("1");
           }
           return prevProgress - 1; // Decrement progress
         }
       });
-    }, 640);
-    setProgress(10);
+    }, 1000);
+    setProgress(timeLimit);
     return () => {
       clearInterval(timer);
     };
   }, [questionid, timeLimit]);
 
-  return <CircularProgressWithLabel value={progress} />;
+  return <CircularProgressWithLabel value={progress} timeLimit={timeLimit} />;
 }
