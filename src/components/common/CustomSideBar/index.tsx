@@ -1,6 +1,7 @@
 import { AppRoutes } from "@/src/constant/appRoutes";
-import { mockDataType } from "@/src/data/type";
+
 import { pushHandler } from "@/src/utils/genericRouting";
+import useStore from "@/src/zustand-store";
 import {
   Box,
   Divider,
@@ -23,19 +24,16 @@ import {
   selectedQueStyles,
 } from "./styles";
 
+interface sideBarProps {}
 
-interface sideBarProps {
-  mockQuestionData: mockDataType[];
-}
-
-const SideBar: React.FC<sideBarProps> = ({ mockQuestionData }) => {
+const SideBar: React.FC<sideBarProps> = () => {
   const isSM = useMediaQuery("(max-width:834px)");
+  const getQuestionData = useStore((state) => state.tests);
+
 
   const {
     query: { testid, questionid },
   } = useRouter();
-
-  
 
   return (
     <Box>
@@ -47,32 +45,36 @@ const SideBar: React.FC<sideBarProps> = ({ mockQuestionData }) => {
         <Toolbar />
         <Box sx={DraweBox}>
           <List sx={ListStyles}>
-            {mockQuestionData.map((data, index: number) => (
-              <ListItem
-                key={index + 1}
-                disablePadding
-                sx={
-                  index + 1 === Number(questionid)
-                    ? selectedQueStyles
-                    : ListItemStyle
-                }
-              >
-                <ListItemButton
-                  onClick={() =>
-                    pushHandler(
-                      AppRoutes.question(
-                        testid as string,
-                        (index as number) + 1
-                      )
-                    )
+            {getQuestionData?.testQuestionsAndAnswers?.map(
+              (data, index: number) => (
+                <ListItem
+                  key={index + 1}
+                  disablePadding
+                  // disabled
+                  sx={
+                    index + 1 === Number(questionid)
+                      ? selectedQueStyles
+                      : ListItemStyle
                   }
                 >
-                  <ListItemIcon sx={ListItemIconStyle}>
-                    {index + 1}
-                  </ListItemIcon>
-                </ListItemButton>
-              </ListItem>
-            ))}
+                  <ListItemButton
+                    disabled={data.answer === null ? false : true}
+                    onClick={() =>
+                      pushHandler(
+                        AppRoutes.question(
+                          testid as string,
+                          (index as number) + 1
+                        )
+                      )
+                    }
+                  >
+                    <ListItemIcon sx={ListItemIconStyle}>
+                      {index + 1}
+                    </ListItemIcon>
+                  </ListItemButton>
+                </ListItem>
+              )
+            )}
           </List>
           <Divider />
         </Box>

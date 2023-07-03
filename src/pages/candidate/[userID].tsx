@@ -24,7 +24,6 @@ const GoogleAuth = () => {
     let Bodydata = {
       candidateId: router.query.userID,
     };
-    console.log(Bodydata);
     const data: any = await fetchApplicant(Bodydata);
     setUserData(data);
   };
@@ -33,7 +32,6 @@ const GoogleAuth = () => {
     if (router.isReady) {
       getUserData();
     }
-    console.log(router.isReady);
   }, [router.isReady]);
 
   const handleGoogleAuth = async () => {

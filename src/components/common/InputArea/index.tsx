@@ -1,20 +1,24 @@
 import { isServer } from "@/src/constant";
-// import ReactQuill from "react-quill";
-// import "react-quill/dist/quill.snow.css";
-
+import useStore from "@/src/zustand-store";
 import dynamic from "next/dynamic";
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 import "react-quill/dist/quill.snow.css";
 import "./inputAreaStyles.module.css";
 
-const InputArea = () => {
+export interface inputAreaProps {
+  onChangeHandler: (value: any) => void;
+  getSelectedAns: string | undefined;
+}
+
+const InputArea = ({ onChangeHandler, getSelectedAns }: inputAreaProps) => {
   return (
     <>
       {!isServer && (
         <ReactQuill
-          //   value={value}
+          value={getSelectedAns}
           //   onChange={onChange}
           //   className={styles.customEditor}
+          onChange={onChangeHandler}
           style={{ height: "80%" }}
           modules={{
             toolbar: [
