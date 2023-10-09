@@ -14,6 +14,7 @@ export const DraweBox = {
   overflow: "auto",
   backgroundColor: "#282c48",
   border: "none",
+  height: "100%"
 };
 
 export const ListStyles = {

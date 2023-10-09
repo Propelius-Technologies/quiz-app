@@ -23,7 +23,9 @@ import ToastMessage from "@/src/components/common/Snackbar";
 import CustomizedSnackbars from "@/src/components/common/Snackbar";
 
 let testID: number = 0;
-interface StartTestProps {}
+interface StartTestProps {
+  isAllTestCompleted?: boolean;
+}
 
 let snackbarData: any = {
   type: "warning",
@@ -31,7 +33,7 @@ let snackbarData: any = {
   duration: 3000,
 };
 
-const StartTest = ({}: StartTestProps) => {
+const StartTest = ({ isAllTestCompleted }: StartTestProps) => {
   const router = useRouter();
 
   const dashboardData = useStore((state) => state.dashboardData);
@@ -39,17 +41,14 @@ const StartTest = ({}: StartTestProps) => {
   const [showMsg, setShowMsg] = useState(false);
 
   useEffect(() => {
-;
     dashboardData?.tests?.map((data: any) => {
       if (data.status === "active") {
-
         testID = data.id;
       }
     });
   }, [dashboardData]);
 
   const handleTest = () => {
-
     router.push(`/${testID}/1`);
     // setShowMsg(true);
   };
@@ -122,15 +121,18 @@ const StartTest = ({}: StartTestProps) => {
             </Grid>
           </Card>
           <Instructions />
-          <Box sx={StartTestButtonBox}>
-            <Button
-              variant="contained"
-              sx={StartTestButton}
-              onClick={handleTest}
-            >
-              Start your test
-            </Button>
-          </Box>
+          {!isAllTestCompleted && (
+            <Box sx={StartTestButtonBox}>
+              <Button
+                variant="contained"
+                sx={StartTestButton}
+                onClick={handleTest}
+                // disabled={isAllTestCompleted}
+              >
+                Start your test
+              </Button>
+            </Box>
+          )}
         </Card>
       </Box>
     </>

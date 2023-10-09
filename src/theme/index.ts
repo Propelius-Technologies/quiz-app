@@ -1,4 +1,4 @@
-import { ThemeOptions } from "@mui/material/styles";
+import { ThemeOptions, createTheme } from "@mui/material/styles";
 import {
   DARK_GREY,
   Greay_Dull,
@@ -12,7 +12,7 @@ import {
 } from "./colors";
 import { ScreenSizes } from "./screen-sizes";
 
-const theme: ThemeOptions = {
+const theme = createTheme({
   components: {
     MuiCssBaseline: {
       styleOverrides: {
@@ -171,6 +171,6 @@ const theme: ThemeOptions = {
       fontSize: "0.688rem", // 11px
     },
   },
-};
+});
 
 export default theme;

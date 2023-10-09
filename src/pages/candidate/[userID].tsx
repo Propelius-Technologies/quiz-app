@@ -24,6 +24,7 @@ const GoogleAuth = () => {
     let Bodydata = {
       candidateId: router.query.userID,
     };
+    // console.log({ Bodydata });
     const data: any = await fetchApplicant(Bodydata);
     setUserData(data);
   };
@@ -36,16 +37,23 @@ const GoogleAuth = () => {
 
   const handleGoogleAuth = async () => {
     setIsLoading(true);
+    // console.log({ provider });
     const response = await signInWithPopup(firebaseAuth, provider).catch(
       (err) => {
+        // console.log({ err });
+        router.push("/404");
         return err;
       }
     );
+    // console.log({ response });
     if (response.code && response.code === "auth/popup-closed-by-user") {
+      // console.log("close");
       setIsLoading(false);
     } else {
       if (router.isReady) {
+        // console.log("1");
         if (response.user?.email === userData?.email) {
+          // console.log("yes");
           setIsLoading(false);
 
           let data = {
@@ -60,6 +68,7 @@ const GoogleAuth = () => {
 
           router.push("/user");
         } else {
+          router.push("/404");
         }
       }
     }

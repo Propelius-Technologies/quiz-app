@@ -30,7 +30,6 @@ const SideBar: React.FC<sideBarProps> = () => {
   const isSM = useMediaQuery("(max-width:834px)");
   const getQuestionData = useStore((state) => state.tests);
 
-
   const {
     query: { testid, questionid },
   } = useRouter();
@@ -76,7 +75,7 @@ const SideBar: React.FC<sideBarProps> = () => {
               )
             )}
           </List>
-          <Divider />
+          {/* <Divider /> */}
         </Box>
       </Drawer>
     </Box>

@@ -40,7 +40,7 @@ const createCandidateSlice: AppStateCreator<CandidateSlice> = (set, get) => ({
       url: "/auth/candidates/login",
       method: "POST",
       data,
-    });
+    })
 
     return await res.data;
   },

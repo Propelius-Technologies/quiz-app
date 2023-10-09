@@ -4,11 +4,15 @@ import ExamModal from "../common/Model";
 import Success from "@/src/assets/images/success.gif";
 import { useState } from "react";
 
-const SubmitModel = () => {
-  const [openModal, setOpenModal] = useState(true);
+export interface propsType {
+  isOpen: boolean;
+  handleClose: () => void;
+}
+
+const SuccessModel = ({ isOpen, handleClose }: propsType) => {
 
   return (
-    <ExamModal open={openModal} onClose={() => setOpenModal(false)}>
+    <ExamModal open={isOpen} onClose={handleClose}>
       <Box
         sx={{
           gap: "30px",
@@ -47,4 +51,4 @@ const SubmitModel = () => {
   );
 };
 
-export default SubmitModel;
+export default SuccessModel;

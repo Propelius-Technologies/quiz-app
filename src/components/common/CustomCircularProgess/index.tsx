@@ -13,7 +13,7 @@ function CircularProgressWithLabel(props: {
   value: number;
   timeLimit: number;
 }) {
-  console.log("timeLinmit", Math.round((props.value / props.timeLimit) * 100));
+  // console.log("timeLinmit", Math.round((props.value / props.timeLimit) * 100));
   let time = Math.round((props.value / props.timeLimit) * 100);
   return (
     <Box
@@ -68,7 +68,7 @@ export default function CircularStatic({
           return 0; // Set progress to 0
         } else {
           // if (timeLimit) {
-          console.log("datatime", prevProgress);
+          // console.log("datatime", prevProgress);
           setTimeTaken(timeLimit - prevProgress);
           // }
           if (prevProgress === 1) {
