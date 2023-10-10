@@ -96,7 +96,7 @@ const Assessment: React.FC<AssessmentProps> = () => {
     // if (getSelectedAns && data) {
     submitAns(testid, data);
     // }
-
+    setSelectedAns("");
     router.push("/user");
   };
 

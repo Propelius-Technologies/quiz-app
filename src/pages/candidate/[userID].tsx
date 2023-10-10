@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 import { fireBaseApp } from "../../../firebase.config";
 import { GetServerSideProps } from "next";
 import useStore from "@/src/zustand-store";
+import { Alert, Snackbar } from "@mui/material";
 
 interface GoogleAuthProps {
   handleGoogleAuth: () => void;
@@ -13,9 +14,11 @@ const GoogleAuth = () => {
   const firebaseAuth = getAuth(fireBaseApp);
   const provider = new GoogleAuthProvider();
   const [isLoading, setIsLoading] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
   const router = useRouter();
   const fetchApplicant = useStore((state) => state.fetchApplicant);
   const setUserData = useStore((state) => state.setUserData);
+  const [Msg, setMsg] = useState("");
 
   const getAccesstoken = useStore((state) => state.getAccesstoken);
 
@@ -26,7 +29,18 @@ const GoogleAuth = () => {
     };
     // console.log({ Bodydata });
     const data: any = await fetchApplicant(Bodydata);
-    setUserData(data);
+    // if (data === "Network Error") {
+    //   setIsOpen(true);
+    //   setMsg(data);
+    // }
+
+    if (data.message) {
+      setIsOpen(true);
+      setMsg(data.message);
+    } else {
+      setUserData(data);
+    }
+    console.log({ data });
   };
 
   useEffect(() => {
@@ -74,8 +88,25 @@ const GoogleAuth = () => {
     }
   };
 
+  console.log({ Msg });
+
   return (
     <>
+      {isOpen && (
+        <Snackbar
+          open={isOpen}
+          autoHideDuration={3000}
+          onClose={() => setIsOpen(false)}
+        >
+          <Alert
+            onClose={() => setIsOpen(false)}
+            severity="error"
+            sx={{ width: "100%" }}
+          >
+            {Msg}
+          </Alert>
+        </Snackbar>
+      )}
       <Authentication
         handleGoogleAuth={handleGoogleAuth}
         isLoading={isLoading}

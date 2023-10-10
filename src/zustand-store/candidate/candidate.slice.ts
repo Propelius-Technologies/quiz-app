@@ -42,6 +42,11 @@ const createCandidateSlice: AppStateCreator<CandidateSlice> = (set, get) => ({
       data,
     })
 
+    if(!res.data) {
+      return res
+    }
+    console.log({res})
+    
     return await res.data;
   },
   setUserData: (value) => set((state) => ({ ...state, userData: value })),
@@ -51,6 +56,7 @@ const createCandidateSlice: AppStateCreator<CandidateSlice> = (set, get) => ({
       method: "POST",
       data,
     });
+    
     return await res.data;
   },
 });

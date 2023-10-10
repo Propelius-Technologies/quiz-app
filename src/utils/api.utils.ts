@@ -16,20 +16,39 @@ export const fetch = async (config: AxiosRequestConfig) => {
     error: null,
   };
 
+  
 
   try {
     const response = await AxiosInstance(config);
     result.data = response.data;
-  } catch (err) {
-    const { message, statusCode, error, branding } = (err as any).response.data;
-    const { status } = (err as any).response;
+  } catch (err: any) {
+    console.log({err})
+    console.log('geterror',err)
+    if(err.code === "ERR_NETWORK") {
+    const { message, statusCode, error, branding } = (err).message;
+    // const { status } = (err as any).response;
 
+    ////////
+    // result.data = (err).message;
     result.error = {
-      statusCode: statusCode || status,
+      statusCode: statusCode || 500,
       message: message || String(error),
       branding,
     };
+  } else {
+    const { message, statusCode, error, branding } = (err).response.data;
+    const { status } = (err).response;
+    const errorMsg = err.response.data.error.errors?.length ? `${err.response.data.error.message} :  ${err.response.data.error.errors[0].message}` : `${err.response.data.error.message}`
+    // result.data = errorMsg;
+    result.error = {
+      statusCode: statusCode || status,
+      message: errorMsg || String(error),
+      branding,
+    };
   }
+  }
+
+  // console.log({result})
 
   return result;
 };
@@ -43,6 +62,8 @@ export const fetchAction = async (config: AxiosRequestConfig) => {
   const axconfig = merge({}, { ...config, ...specificConfig });
 
   const res = await fetch(axconfig);
+
+  console.log('response',res)
   const { data, error } = res;
 
   // TODO remove this
@@ -50,6 +71,7 @@ export const fetchAction = async (config: AxiosRequestConfig) => {
 
 
   if (error) {
+    return error
   }
 
   return data;
